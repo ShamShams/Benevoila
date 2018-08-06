@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import './App.scss';
+import './styles.scss';
 
 class App extends Component {
-
     render() {
         return (
-            <div className='styyle'>
-                <p>Bénévoilàaaa</p>
+            <div>
+                <p className="app">Bénévoilàaaa</p>
             </div>
         );
     }
-
 }
 
 export default App;

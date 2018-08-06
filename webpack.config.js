@@ -1,12 +1,10 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     optimization: {
-        minimizer: [
-            new OptimizeCSSAssetsPlugin({})
-        ]
+        minimizer: [new OptimizeCSSAssetsPlugin({})]
     },
     module: {
         rules: [
@@ -14,24 +12,24 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
+                    loader: 'babel-loader'
                 }
             },
             {
                 test: /\.html$/,
                 use: [
                     {
-                        loader: "html-loader"
+                        loader: 'html-loader'
                     }
                 ]
             },
             {
                 test: /\.scss$/,
                 use: [
-                    "style-loader",
+                    'style-loader',
                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
+                    'css-loader',
+                    'sass-loader'
                 ]
             },
             {
@@ -41,27 +39,25 @@ module.exports = {
                     {
                         loader: 'image-webpack-loader',
                         options: {
-                            bypassOnDebug: true,
-                        },
-                    },
-                ],
+                            bypassOnDebug: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader'
-                ]
+                use: ['file-loader']
             }
         ]
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: "./src/template/index.html",
-            filename: "./index.html"
+            template: './src/template/index.html',
+            filename: './index.html'
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: '[name].css',
+            chunkFilename: '[id].css'
         })
     ]
 };
