@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-import ActionsList from '../ActionsList';
+import Main from '../Main';
+import SideBar from '../SideBar';
 
 class App extends Component {
     render() {
         return (
             <div>
-                <ActionsList></ActionsList>
+                <SideBar />
+                <Main />
             </div>
         );
     }
