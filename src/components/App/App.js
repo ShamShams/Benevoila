@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './styles.scss';
+
+import ActionsList from '../ActionsList';
 
 class App extends Component {
     render() {
         return (
             <div>
-                <p className="app">Bénévoilàaaa</p>
+                <ActionsList></ActionsList>
             </div>
         );
     }
