@@ -1,0 +1,52 @@
+@import "../../styles/variables";
+
+.action-card {
+    margin: 2rem 0;
+
+    &-summary {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-right: 1rem;
+    }
+    &-infos {
+        flex-basis: 35%;
+    }
+    &-date {
+        margin: 0;
+        color: $red;
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+    }
+    &-title {
+        color: $grey-title;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 0.3px;
+    }
+    &-time-place {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    &-vlt {
+        &-infos {
+            p {
+                margin: 0;
+                font-size: 15px;
+                font-weight: 500;
+            }
+        }
+        &-reg {
+            color: $cyan;
+            font-weight: bold;
+        }
+        &-needed {
+            color: $red;
+            font-weight: bold;
+        }
+    }
+}
