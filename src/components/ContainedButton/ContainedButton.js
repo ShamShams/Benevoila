@@ -8,7 +8,7 @@ const styles = () => ({
     customizeButton: {
         borderRadius: '0px',
         fontWeight: 'bold',
-        letterSpacing: '0.7px'
+        letterSpacing: '0.5px'
     },
     blueButton: { color: '#fff', backgroundColor: '#00acc1' },
     redButton: { color: '#fff', backgroundColor: '#ee6e73' }
