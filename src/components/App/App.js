@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 
 import Main from '../Main';
 import SideBar from '../SideBar';
@@ -14,4 +15,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default hot(module)(App);
