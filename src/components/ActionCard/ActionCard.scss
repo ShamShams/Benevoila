@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 .action-card {
     margin-top: 1.5rem;
@@ -41,10 +41,12 @@
             }
         }
         &-reg {
+            margin-left: 5px;
             color: $cyan;
             font-weight: bold;
         }
         &-needed {
+            margin-left: 5px;
             color: $red;
             font-weight: bold;
         }
