@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ActionCard from '../ActionCard';
+import Loader from '../Loader';
 
 import axios from 'axios';
 
@@ -32,13 +33,13 @@ class ActionsList extends Component {
     render() {
         const { actions, isLoading } = this.state;
         return (
-            <div className="action-list">
+            <div className={isLoading ? 'loader' : 'action-list'}>
                 {!isLoading ? (
                     actions.map(action => (
                         <ActionCard key={action.action_id} action={action} />
                     ))
                 ) : (
-                    <p>Chargement...</p>
+                    <Loader />
                 )}
             </div>
         );
