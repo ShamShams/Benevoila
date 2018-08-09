@@ -6,16 +6,14 @@ import ActionsList from '../ActionsList';
 import './Main.scss';
 
 class Main extends Component {
-
     render() {
         return (
             <div className="main">
-                <Header title="Toutes les actions"></Header>
+                <Header title="Toutes les actions" />
                 <ActionsList />
             </div>
         );
     }
-
 }
 
 export default Main;
