@@ -36,9 +36,13 @@ class ActionsList extends Component {
             <div className={isLoading ? 'loader' : 'action-list'}>
                 {error ? <p>{error.message}</p> : null}
                 {!isLoading ? (
-                    actions.map(action => (
-                        <ActionCard key={action.action_id} action={action} />
-                    ))
+                    actions
+                        .sort((a, b) => {
+                            return new Date(a.start_date) - new Date(b.start_date);
+                        })
+                        .map(action => (
+                            <ActionCard key={action.action_id} action={action} />
+                        ))
                 ) : (
                     <Loader />
                 )}
