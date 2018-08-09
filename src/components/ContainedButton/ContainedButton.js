@@ -10,14 +10,29 @@ const styles = () => ({
         fontWeight: 'bold',
         letterSpacing: '0.5px'
     },
-    blueButton: { color: '#fff', backgroundColor: '#00acc1' },
-    redButton: { color: '#fff', backgroundColor: '#ee6e73' }
+    blueButton: {
+        color: '#fff',
+        backgroundColor: '#00acc1',
+        '&:hover': {
+            backgroundColor: '#26C6DA'
+        }
+    },
+    redButton: {
+        color: '#fff',
+        backgroundColor: '#ee6e73',
+        '&:hover': {
+            backgroundColor: '#EF9A9A'
+        }
+    }
 });
 
 const ContainedButton = ({ children, color, classes }) => (
     <div>
-        <Button variant="contained" className={classNames(classes.customizeButton, classes[color])}>
-            { children }
+        <Button
+            variant="contained"
+            className={classNames(classes.customizeButton, classes[color])}
+        >
+            {children}
         </Button>
     </div>
 );

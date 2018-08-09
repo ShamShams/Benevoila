@@ -43,9 +43,7 @@ const ActionCard = ({ classes, action }) => {
                             <p className="action-card-date">
                                 {moment(start_date).format('DD/MM/YYYY')}
                             </p>
-                            <p className="action-card-title">
-                                {name}
-                            </p>
+                            <p className="action-card-title">{name}</p>
                             <p className="action-card-time-place">
                                 {city} - {moment(start_date).format('H:mm')} -{' '}
                                 {moment(end_date).format('H:mm')}
