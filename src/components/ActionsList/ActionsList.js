@@ -11,11 +11,11 @@ class ActionsList extends Component {
     state = {
         actions: [],
         isLoading: true,
-        errors: null
+        error: null
     };
 
     async getActions() {
-        const response = await axios.get('http://localhost:3000/actions');
+        const response = await axios.get('http://localhost:3000/actionsWithType');
         try {
             this.setState({
                 actions: response.data,
@@ -31,9 +31,10 @@ class ActionsList extends Component {
     }
 
     render() {
-        const { actions, isLoading } = this.state;
+        const { actions, isLoading, error } = this.state;
         return (
             <div className={isLoading ? 'loader' : 'action-list'}>
+                {error ? <p>{error.message}</p> : null}
                 {!isLoading ? (
                     actions.map(action => (
                         <ActionCard key={action.action_id} action={action} />

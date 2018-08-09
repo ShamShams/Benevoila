@@ -22,7 +22,8 @@ const styles = () => ({
 
 const ActionCard = ({ classes, action }) => {
     const {
-        action_type_id,
+        name,
+        description,
         start_date,
         end_date,
         address,
@@ -43,7 +44,7 @@ const ActionCard = ({ classes, action }) => {
                                 {moment(start_date).format('DD/MM/YYYY')}
                             </p>
                             <p className="action-card-title">
-                                {action_type_id}
+                                {name}
                             </p>
                             <p className="action-card-time-place">
                                 {city} - {moment(start_date).format('H:mm')} -{' '}
@@ -53,7 +54,9 @@ const ActionCard = ({ classes, action }) => {
                         <div className="action-card-vlt-infos">
                             <p>
                                 Inscrits :
-                                <span className="action-card-vlt-reg">0</span> -
+                                <span className="action-card-vlt-reg">0</span>
+                            </p>
+                            <p>
                                 Manquants :
                                 <span className="action-card-vlt-needed">
                                     {need}
@@ -70,11 +73,7 @@ const ActionCard = ({ classes, action }) => {
                     <div className="action-card-details">
                         <div className="action-card-description">
                             <h4>Description</h4>
-                            <p>
-                                Les maraudes consistent à aller à la rencontre
-                                des personnes précaires et sans abri et leur
-                                proposer de l'aide
-                            </p>
+                            <p>{description}</p>
                         </div>
                         {/*<div className="action-card-referent">
                             <h4>Référent</h4>
