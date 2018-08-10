@@ -26,10 +26,13 @@ const styles = () => ({
 });
 
 class ActionCard extends Component {
-    state = { expansionPanelOpen: false };
+    state = {
+        expansionPanelOpen: false
+    };
 
     render() {
         const { classes, action, registered, handleClick } = this.props;
+        const { expansionPanelOpen } = this.state;
         const {
             name,
             description,
@@ -53,10 +56,7 @@ class ActionCard extends Component {
 
         return (
             <div className="action-card">
-                <ExpansionPanel
-                    elevation={2}
-                    expanded={this.state.expansionPanelOpen}
-                >
+                <ExpansionPanel elevation={2} expanded={expansionPanelOpen}>
                     <ExpansionPanelSummary
                         expandIcon={
                             <ExpandMoreIcon
@@ -88,13 +88,13 @@ class ActionCard extends Component {
                                 <p>
                                     Inscrits :
                                     <span className="action-card-vlt-reg">
-                                        0
+                                        {registered ? 1 : 0}
                                     </span>
                                 </p>
                                 <p>
                                     Manquants :
                                     <span className="action-card-vlt-needed">
-                                        {need}
+                                        {registered ? need - 1 : need}
                                     </span>
                                 </p>
                             </div>
@@ -108,10 +108,13 @@ class ActionCard extends Component {
                                 <h4>Description</h4>
                                 <p>{description}</p>
                             </div>
-                            {/*<div className="action-card-referent">
+                            <div className="action-card-referent">
                                 <h4>Référent</h4>
-                                <p></p>
-                            </div>*/}
+                                <p>
+                                    Amine Zerrougui <br /> 06 17 08 67 05 <br />{' '}
+                                    azerrougui@asso.com
+                                </p>
+                            </div>
                             <div className="action-card-address">
                                 <h4>Adresse</h4>
                                 <p>
