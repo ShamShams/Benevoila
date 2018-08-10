@@ -35,10 +35,21 @@ class ActionsList extends Component {
 
     handleClick(action) {
         const { userActions } = this.state;
-        const updatedUserActions = [...userActions, action];
-        this.setState({
-            userActions: updatedUserActions
-        });
+        if (userActions.includes(action)) {
+            const actionIndex = userActions.indexOf(action);
+            const updatedUserActions = [
+                ...userActions.slice(0, actionIndex),
+                ...userActions.slice(actionIndex + 1)
+            ];
+            this.setState({
+                userActions: updatedUserActions
+            });
+        } else {
+            const updatedUserActions = [...userActions, action];
+            this.setState({
+                userActions: updatedUserActions
+            });
+        }
     }
 
     render() {

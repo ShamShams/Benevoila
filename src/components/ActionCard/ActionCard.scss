@@ -52,6 +52,12 @@
             font-weight: bold;
         }
     }
+    &-button {
+        flex-basis: 23%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
     &-details {
         padding-right: 2rem;
         display: flex;
