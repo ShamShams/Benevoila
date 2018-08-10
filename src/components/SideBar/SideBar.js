@@ -22,7 +22,7 @@ const SideBar = ({ classes }) => (
             <Divider />
             <div className="navlinks">
                 <li>
-                    <NavLink to="/" className="link">
+                    <NavLink to="/" className="link" exact>
                         Toutes les actions
                     </NavLink>
                 </li>

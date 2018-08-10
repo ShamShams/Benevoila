@@ -9,7 +9,8 @@ import './ActionsList.scss';
 
 class ActionsList extends Component {
     state = {
-        actions: [],
+        allActions: [],
+        userActions: [],
         isLoading: true,
         error: null
     };
@@ -20,7 +21,7 @@ class ActionsList extends Component {
         );
         try {
             this.setState({
-                actions: response.data,
+                allActions: response.data,
                 isLoading: false
             });
         } catch (error) {
@@ -32,13 +33,25 @@ class ActionsList extends Component {
         this.getActions();
     }
 
+    handleClick(action) {
+        const { userActions } = this.state;
+        const updatedUserActions = [...userActions, action];
+        this.setState({
+            userActions: updatedUserActions
+        });
+    }
+
     render() {
-        const { actions, isLoading, error } = this.state;
+        const { allActions, userActions, isLoading, error } = this.state;
+        const { page } = this.props;
+
+        const actionsList = page === 'useractions' ? userActions : allActions;
+
         return (
             <div className={isLoading ? 'loader' : 'action-list'}>
                 {error ? <p>{error.message}</p> : null}
                 {!isLoading ? (
-                    actions
+                    actionsList
                         .sort((a, b) => {
                             return (
                                 new Date(a.start_date) - new Date(b.start_date)
@@ -48,6 +61,8 @@ class ActionsList extends Component {
                             <ActionCard
                                 key={action.action_id}
                                 action={action}
+                                registered={userActions.includes(action)}
+                                handleClick={() => this.handleClick(action)}
                             />
                         ))
                 ) : (

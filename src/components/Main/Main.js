@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Header from '../Header';
 import ActionsList from '../ActionsList';
 
 import './Main.scss';
 
-class Main extends Component {
-    render() {
-        return (
-            <div className="main">
-                <Header title="Toutes les actions" />
-                <ActionsList />
-            </div>
-        );
-    }
-}
+const Main = ({ page }) => {
+    const title = page === 'useractions' ? 'Mes actions' : 'Toutes les actions';
+    return (
+        <div className="main">
+            <Header title={title} />
+            <ActionsList page={page} />
+        </div>
+    );
+};
 
 export default Main;

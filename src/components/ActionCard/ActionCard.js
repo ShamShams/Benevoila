@@ -20,7 +20,7 @@ const styles = () => ({
     details: { padding: '20px 24px' }
 });
 
-const ActionCard = ({ classes, action }) => {
+const ActionCard = ({ classes, action, registered, handleClick }) => {
     const {
         name,
         description,
@@ -31,6 +31,17 @@ const ActionCard = ({ classes, action }) => {
         city,
         need
     } = action;
+
+    const button = registered ? (
+        <ContainedButton color="redButton" handleClick={handleClick}>
+            Je me désinscris
+        </ContainedButton>
+    ) : (
+        <ContainedButton color="blueButton" handleClick={handleClick}>
+            Je m'inscris
+        </ContainedButton>
+    );
+
     return (
         <div className="action-card">
             <ExpansionPanel>
@@ -61,9 +72,7 @@ const ActionCard = ({ classes, action }) => {
                                 </span>
                             </p>
                         </div>
-                        <ContainedButton color="blueButton">
-                            Je m'inscris
-                        </ContainedButton>
+                        {button}
                     </div>
                 </ExpansionPanelSummary>
                 <Divider inset={true} />
@@ -75,10 +84,7 @@ const ActionCard = ({ classes, action }) => {
                         </div>
                         {/*<div className="action-card-referent">
                             <h4>Référent</h4>
-                            <p>
-                                Farid Hassan <br /> 06 12 76 54 98 <br />{' '}
-                                farid.hassan@asso.fr
-                            </p>
+                            <p></p>
                         </div>*/}
                         <div className="action-card-address">
                             <h4>Adresse</h4>
