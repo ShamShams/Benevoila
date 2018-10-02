@@ -12,14 +12,14 @@ class App extends Component {
                     <SideBar />
                     <Switch>
                         <Route
+                            exact path="/"
+                            render={() => <Main page="allActions" />}
+                        />
+                        <Route
                             path="/useractions"
                             render={() => <Main page="useractions" />}
                         />
                         <Route path="/profile" component={Main} />
-                        <Route
-                            path="/"
-                            render={() => <Main page="allActions" />}
-                        />
                     </Switch>
                 </div>
             </Router>

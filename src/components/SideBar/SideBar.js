@@ -20,7 +20,7 @@ const SideBar = ({ classes }) => (
                 <img src={logoAcdlp} alt="Logo Au coeur de la précarité" />
             </div>
             <Divider />
-            <div className="navlinks">
+            <nav className="navlinks">
                 <li>
                     <NavLink to="/" className="link" exact>
                         Toutes les actions
@@ -36,7 +36,7 @@ const SideBar = ({ classes }) => (
                         Mon profil
                     </NavLink>
                 </li>
-            </div>
+            </nav>
         </div>
     </Drawer>
 );
