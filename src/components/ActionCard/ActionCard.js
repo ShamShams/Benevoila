@@ -101,7 +101,7 @@ class ActionCard extends Component {
                             <div className="action-card-button">{button}</div>
                         </div>
                     </ExpansionPanelSummary>
-                    <Divider inset={true} />
+                    <Divider light />
                     <ExpansionPanelDetails classes={{ root: classes.details }}>
                         <div className="action-card-details">
                             <div className="action-card-description">
