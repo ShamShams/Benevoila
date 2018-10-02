@@ -88,13 +88,13 @@ class ActionCard extends Component {
                                 <p>
                                     Inscrits :
                                     <span className="action-card-vlt-reg">
-                                        {registered ? 1 : 0}
+                                        0
                                     </span>
                                 </p>
                                 <p>
                                     Manquants :
                                     <span className="action-card-vlt-needed">
-                                        {registered ? need - 1 : need}
+                                        {need}
                                     </span>
                                 </p>
                             </div>
