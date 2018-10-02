@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ActionCard from '../ActionCard';
+import FullTabs from '../FullTabs';
 import Loader from '../Loader';
 
 import axios from 'axios';
@@ -35,6 +36,8 @@ class ActionsList extends Component {
 
     handleClick(action) {
         const { userActions } = this.state;
+
+        // Si le bénévole est déjà inscrit, l'action est supprimé de sa liste
         if (userActions.includes(action)) {
             const actionIndex = userActions.indexOf(action);
             const updatedUserActions = [
@@ -44,6 +47,8 @@ class ActionsList extends Component {
             this.setState({
                 userActions: updatedUserActions
             });
+
+        // sinon l'action est ajoutée
         } else {
             const updatedUserActions = [...userActions, action];
             this.setState({
