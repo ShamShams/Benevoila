@@ -73,9 +73,43 @@
             color: $grey-paragraph;
             font-size: 13.8px;
             font-weight: 500;
+            line-height: 1.4;
         }
     }
     &-description {
         flex-basis: 55%;
+    }
+}
+
+.action-modal {
+    &-header {
+        margin-bottom: 1.7rem;
+        p {
+            margin: 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 20px;
+        }
+    }
+    &-title {
+        margin-bottom: 1rem;
+        color: $red;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    &-vlt-infos {
+        display: flex;
+        p {
+            margin-right: 1rem;
+        }
+    }
+    &-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.5rem;
+    }
+    &-button {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
     }
 }

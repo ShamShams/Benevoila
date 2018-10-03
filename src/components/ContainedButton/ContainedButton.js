@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = () => ({
     customizeButton: {
-        borderRadius: '0px',
+        borderRadius: '2px',
         fontWeight: 'bold',
         letterSpacing: '0.5px'
     },
