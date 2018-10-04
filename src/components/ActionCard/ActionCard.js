@@ -2,21 +2,12 @@ import React, { Component } from 'react';
 
 import moment from 'moment';
 
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Divider,
-    ExpansionPanel,
-    ExpansionPanelDetails,
-    ExpansionPanelSummary,
-} from '@material-ui/core';
+import { Divider, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
 import ContainedButton from '../ContainedButton';
+import ActionModal from '../ActionModal';
 
 import './ActionCard.scss';
 
@@ -44,7 +35,7 @@ class ActionCard extends Component {
         this.setState({ dialogOpen: false });
     };
 
-    register = () => {
+    handleRegister = () => {
         this.props.handleClick();
         this.setState({ dialogOpen: false });
     }
@@ -146,72 +137,21 @@ class ActionCard extends Component {
                         </div>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
-
-                <Dialog
-                    open={dialogOpen}
-                    aria-labelledby="alert-dialog-title"
-                >
-                    <DialogContent>
-                        <div className="action-modal-header">
-                            <p>Voulez-vous vous inscrire à cette action ?</p>
-                        </div>
-                        <p className="action-modal-title">{name}</p>
-                        <div className="action-card-details">
-                            <div>
-                                <h4>Date</h4>
-                                <p>{action_date}</p>
-                            </div>
-                            <div>
-                                <h4>Horaires</h4>
-                                <p>{start_time} - {end_time}</p>
-                            </div>
-                            <div>
-                                <h4>Lieu</h4>
-                                <p>
-                                    {address} <br /> {zipcode} {city}
-                                </p>
-                            </div>
-                        </div>
-                        <div className="action-card-details">
-                            <div>
-                                <h4>Description</h4>
-                                <p>{description}</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="action-card-details">
-                            <div>
-                                <h4>Nombre de bénévoles</h4>
-                                <div className="action-modal-vlt-infos">
-                                    <p>
-                                        Inscrits :
-                                        <span className="action-card-vlt-reg">
-                                            0
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Manquants :
-                                        <span className="action-card-vlt-needed">
-                                            {need}
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="action-modal-buttons">
-                            <div className="action-modal-button">
-                                <Button onClick={this.closeDialog}>
-                                    Annuler
-                                </Button>
-                            </div>
-                            <div className="action-modal-button">
-                                <ContainedButton color="blueButton" handleClick={this.register}>
-                                    Je m'inscris
-                                </ContainedButton>
-                            </div>
-                        </div>
-                    </DialogContent>
-                </Dialog>
+                <ActionModal
+                    dialogOpen={dialogOpen}
+                    name={name}
+                    date={action_date}
+                    start={start_time}
+                    end={end_time}
+                    address={address}
+                    zipcode={zipcode}
+                    city={city}
+                    description={description}
+                    need={need}
+                    handleRegister={this.handleRegister}
+                    close={this.closeDialog}
+                    isRegistered={registered}
+                />
             </div>
         );
     }

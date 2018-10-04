@@ -44,16 +44,20 @@ class ActionsList extends Component {
                 ...userActions.slice(0, actionIndex),
                 ...userActions.slice(actionIndex + 1)
             ];
-            this.setState({
-                userActions: updatedUserActions
-            });
+            setTimeout(() => {
+                this.setState({
+                    userActions: updatedUserActions
+                });
+            }, 200);
 
         // sinon l'action est ajoutée
         } else {
             const updatedUserActions = [...userActions, action];
-            this.setState({
-                userActions: updatedUserActions
-            });
+            setTimeout(() => {
+                this.setState({
+                    userActions: updatedUserActions
+                });
+            }, 200);
         }
     }
 
