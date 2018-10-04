@@ -1,0 +1,34 @@
+@import '../../styles/variables';
+
+.action-modal {
+    &-header {
+        margin-bottom: 1.7rem;
+        p {
+            margin: 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 20px;
+        }
+    }
+    &-title {
+        margin-bottom: 1rem;
+        color: $red;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    &-vlt-infos {
+        display: flex;
+        p {
+            margin-right: 1rem !important;
+        }
+    }
+    &-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.5rem;
+    }
+    &-button {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
