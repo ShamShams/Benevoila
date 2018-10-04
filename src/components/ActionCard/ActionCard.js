@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import moment from 'moment';
+moment.locale('fr');
 
 import { Divider, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -54,9 +55,9 @@ class ActionCard extends Component {
             need
         } = action;
 
-        const action_date = moment(start_date).format('DD/MM/YYYY');
-        const start_time = moment(start_date).format('H:mm');
-        const end_time = moment(end_date).format('H:mm');
+        const action_date = moment(start_date).format('dddd DD MMMM YYYY');
+        const start_time = moment(start_date).format('HH:mm');
+        const end_time = moment(end_date).format('HH:mm');
 
         const button = registered ? (
             <ContainedButton color="redButton" handleClick={this.openDialog}>

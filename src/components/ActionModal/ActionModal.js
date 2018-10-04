@@ -22,7 +22,7 @@ const ActionModal = ({ dialogOpen, name, date, start, end, address, zipcode, cit
                 <div className="action-card-details">
                     <div>
                         <h4>Date</h4>
-                        <p>{date}</p>
+                        <p className="capitalize">{date}</p>
                     </div>
                     <div>
                         <h4>Horaires</h4>
