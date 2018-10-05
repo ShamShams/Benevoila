@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../Header';
-import ActionsList from '../ActionsList';
+import ActionsList from './ActionsList';
 
 import './Actions.scss';
 

@@ -7,7 +7,7 @@ import { Divider, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary }
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
-import ContainedButton from '../ContainedButton';
+import ContainedButton from '../../ContainedButton';
 import ActionModal from '../ActionModal';
 
 import './ActionCard.scss';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
-import ContainedButton from '../ContainedButton';
+import ContainedButton from '../../ContainedButton';
 
 import './ActionModal.scss';
 

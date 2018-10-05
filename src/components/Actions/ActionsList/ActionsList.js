@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ActionCard from '../ActionCard';
 // import FullTabs from '../FullTabs';
-import Loader from '../Loader';
+import Loader from '../../Loader';
 
 import axios from 'axios';
 
