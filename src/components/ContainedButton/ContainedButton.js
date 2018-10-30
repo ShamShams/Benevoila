@@ -26,12 +26,12 @@ const styles = () => ({
     }
 });
 
-const ContainedButton = ({ children, color, classes, handleClick }) => (
-    <div>
+const ContainedButton = ({ children, preset, classes, style, onClick }) => (
+    <div className={style}>
         <Button
             variant="contained"
-            onClick={handleClick}
-            className={classNames(classes.customizeButton, classes[color])}
+            onClick={onClick}
+            className={classNames(classes.customizeButton, classes[preset])}
         >
             {children}
         </Button>

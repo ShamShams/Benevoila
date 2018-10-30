@@ -60,11 +60,11 @@ class ActionCard extends Component {
         const end_time = moment(end_date).format('HH:mm');
 
         const button = registered ? (
-            <ContainedButton color="redButton" handleClick={this.openDialog}>
+            <ContainedButton preset="redButton" onClick={this.openDialog}>
                 Je me désinscris
             </ContainedButton>
         ) : (
-            <ContainedButton color="blueButton" handleClick={this.openDialog}>
+            <ContainedButton preset="blueButton" onClick={this.openDialog}>
                 Je m'inscris
             </ContainedButton>
         );

@@ -69,11 +69,11 @@ const ActionModal = ({ dialogOpen, name, date, start, end, address, zipcode, cit
                     </div>
                     <div className="action-modal-button">
                         {isRegistered ? (
-                            <ContainedButton color="redButton" handleClick={handleRegister}>
+                            <ContainedButton preset="redButton" onClick={handleRegister}>
                                 Je me désinscris
                             </ContainedButton>
                         ) : (
-                            <ContainedButton color="blueButton" handleClick={handleRegister}>
+                            <ContainedButton preset="blueButton" onClick={handleRegister}>
                                 Je m'inscris
                             </ContainedButton>
                         )}
