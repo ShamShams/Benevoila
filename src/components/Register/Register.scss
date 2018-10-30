@@ -1,0 +1,23 @@
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 25rem;
+        margin-top: 2rem;
+        padding: 2rem;
+        background-color: #fff;
+        border-radius: 10px;
+        &-title {
+            font-size: 26px;
+            margin: 0;
+        }
+        &-btn {
+            margin-top: 2rem;
+        }
+    }
+}
