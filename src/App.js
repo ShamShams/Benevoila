@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import theme from './theme';
 
 import Main from './components/Main';
+import Register from './components/Register';
 
 class App extends Component {
     render() {
@@ -13,8 +14,8 @@ class App extends Component {
                 <Router>
                     <div>
                         <Switch>
-                            <Route path="/" component={Main}/>
-                            <Route path="/register"/>
+                            <Route exact path="/" component={Main}/>
+                            <Route path="/register" component={Register}/>
                         </Switch>
                     </div>
                 </Router>

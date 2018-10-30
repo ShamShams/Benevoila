@@ -12,11 +12,11 @@ const Main = ({}) => (
                 <Switch>
                     <Route
                         exact path="/"
-                        render={() => <Actions page="allActions" />}
+                        render={() => <Actions page="allActions"/>}
                     />
                     <Route
                         path="/useractions"
-                        render={() => <Actions page="useractions" />}
+                        render={() => <Actions page="useractions"/>}
                     />
                     <Route path="/profile"/>
                 </Switch>

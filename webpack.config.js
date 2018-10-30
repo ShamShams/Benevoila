@@ -50,9 +50,12 @@ module.exports = {
             }
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+    },
     plugins: [
         new HtmlWebPackPlugin({
-            template: './src/template/index.html',
+            template: './src/index.html',
             filename: './index.html'
         }),
         new MiniCssExtractPlugin({
