@@ -22,17 +22,17 @@ const SideBar = ({ classes }) => (
             <Divider />
             <nav className="navlinks">
                 <li>
-                    <NavLink to="/" className="link" exact>
+                    <NavLink to="/main" className="link" exact>
                         Toutes les actions
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/useractions" className="link">
+                    <NavLink to="/main/useractions" className="link">
                         Mes actions
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/profile" className="link">
+                    <NavLink to="/main/profile" className="link">
                         Mon profil
                     </NavLink>
                 </li>
