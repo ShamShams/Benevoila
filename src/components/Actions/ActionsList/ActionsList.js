@@ -6,8 +6,6 @@ import Loader from '../../Loader';
 
 import axios from 'axios';
 
-import './ActionsList.scss';
-
 class ActionsList extends Component {
     state = {
         allActions: [],
@@ -16,18 +14,12 @@ class ActionsList extends Component {
         error: null
     };
 
-    async getActions() {
-        const response = await axios.get(
-            'http://localhost:3000/actionsWithType'
-        );
-        try {
-            this.setState({
-                allActions: response.data,
-                isLoading: false
-            });
-        } catch (error) {
-            this.setState({ error, isLoading: false });
-        }
+    getActions() {
+        axios.get('http://localhost:3000/actionsWithType')
+            .then(res => {
+                this.setState({ allActions: res.data, isLoading: false });
+            })
+            .catch(error => { this.setState({ error, isLoading: false }); });
     }
 
     componentDidMount() {
