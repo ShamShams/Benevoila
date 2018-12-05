@@ -10,8 +10,6 @@ import { withStyles } from '@material-ui/core/styles';
 import ContainedButton from '../../ContainedButton';
 import ActionModal from '../ActionModal';
 
-import './ActionCard.scss';
-
 const styles = () => ({
     root: {
         '&:hover:not(.MuiExpansionPanelSummary-disabled-62)': {

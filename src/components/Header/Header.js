@@ -1,5 +1,4 @@
 import React from 'react';
-import './Header.scss';
 
 const Header = ({ title, children }) => (
     <div className="header">

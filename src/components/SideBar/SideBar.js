@@ -7,8 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 import logoAcdlp from '../../assets/images/logo-acdlp.png';
 
-import './SideBar.scss';
-
 const styles = () => ({
     drawer: { width: '16rem' }
 });

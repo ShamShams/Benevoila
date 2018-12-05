@@ -3,8 +3,6 @@ import React from 'react';
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 import ContainedButton from '../../ContainedButton';
 
-import './ActionModal.scss';
-
 const ActionModal = ({ dialogOpen, name, date, start, end, address, zipcode, city, description, need, isRegistered, handleRegister, close }) => (
     <div>
         <Dialog

@@ -3,8 +3,6 @@ import React from 'react';
 import Header from '../Header';
 import ActionsList from './ActionsList';
 
-import './Actions.scss';
-
 const Actions = ({ page }) => {
     const title = page === 'useractions' ? 'Mes actions' : 'Toutes les actions';
     return (
