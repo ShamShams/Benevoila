@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 
 import ContainedButton from '../ContainedButton';
 
-import './Register.scss';
+import axios from 'axios';
 
 const inputs = [
     {name: 'firstname', label: "Prénom"},
@@ -16,25 +16,51 @@ const inputs = [
 ];
 
 const phoneRegex = /\d{10}/;
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegex = /[a-z0-9]+[_a-z0-9\.-]*[a-z0-9]+@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})/;
 
 class Register extends Component {
     state = {
-        firstname: '',
-        lastname: '',
-        email: '',
-        phone: '',
-        password: '',
-        passwordConfirm: '',
+        firstname: 'Hey',
+        lastname: 'Ho',
+        email: 'hey@ho.ho',
+        phone: '0192939495',
+        password: 'heyhoo',
+        passwordConfirm: 'heyhoo',
         submitted: false,
+        registered: false,
+        errorMsg: ''
     }
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
 
-    handleClick = () => {
+    handleSubmit = () => {
         this.setState({ submitted: true });
+        // On vérifie que les champs du formulaires ne sont pas vides
+        const { firstname, lastname, email, phone, password, passwordConfirm } = this.state;
+        const fieldsToVerify = [ firstname, lastname, phone, email, password, passwordConfirm ];
+        const fieldsNotEmpty = fieldsToVerify.every(field => field !== '');
+        // et qu'ils n'ont pas d'erreur
+        const errors = Object.values(this.showError());
+        let hasNoError = errors.every(field => !field.error);
+
+        if (fieldsNotEmpty && hasNoError) {
+            const userInfos = { firstname, lastname, email, phone, password };
+            axios.post('http://localhost:3000/users/register', userInfos)
+                .then(res => {
+                    console.log(res);
+                    if (res.data.success) {
+                        this.setState({ registered: true });
+                    } else {
+                        this.setState({ errorMsg: res.data.msg });
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.setState({ errorMsg: 'Une erreur s\'est produite. L\'inscription a échoué.' });
+                });
+        }
     };
 
     showError() {
@@ -59,48 +85,50 @@ class Register extends Component {
         };
     };
 
-    render() {
+    renderInputs = (input) => {
         const errors = this.showError();
+        const {name, label, type} = input;
+        let error = false; 
+        let errorText = false;
+        if (this.state.submitted) {
+            if (this.state[name] === '') {
+                error = true;
+                errorText = 'Veuillez remplir ce champ';
+            } else if (errors[name]) {
+                if (errors[name].error) {
+                    error = true;
+                    errorText = errors[name].text;
+                }
+            }
+        }
+        return (
+            <TextField
+                key={name}
+                error={error}
+                helperText={errorText}
+                label={label}
+                value={this.state[name]}
+                onChange={this.handleChange(name)}
+                margin="normal"
+                type={type && type}
+                fullWidth
+            />
+        );
+    }
+
+    render() {
         return (
             <div className="register">
                 <form className="register-form">
                     <h1 className="register-form-title">Inscription</h1>
-                    { inputs.map(input => {
-                        
-                        const {name, label, type} = input;
-                        const isEmpty = this.state[name] === '';
-                        let error = false; 
-                        let errorText = false;
-
-                        if (this.state.submitted) {
-                            if (isEmpty) {
-                                error = true;
-                                errorText = 'Veuillez remplir ce champ';
-                            } else if (errors[name]) {
-                                if (errors[name].error) {
-                                    error = true;
-                                    errorText = errors[name].text;
-                                }
-                            }
-                        }
-                        return (
-                            <TextField
-                                key={name}
-                                error={error}
-                                helperText={errorText}
-                                label={label}
-                                value={this.state[name]}
-                                onChange={this.handleChange(name)}
-                                margin="normal"
-                                type={type && type}
-                                fullWidth
-                            />
-                        );
-                    })}
+                    { this.state.errorMsg &&
+                        <p className="register-form-error">{this.state.errorMsg}</p>
+                    }
+                    {inputs.map(this.renderInputs)}
                     <ContainedButton 
                         preset="blueButton" 
                         style="register-form-btn"
-                        onClick={this.handleClick}
+                        onClick={this.handleSubmit}
                     >
                         S'inscrire
                     </ContainedButton>

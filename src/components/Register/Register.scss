@@ -4,7 +4,7 @@
     align-items: center;
     &-form {
         display: flex;
-        flex-wrap: wrap;
+        flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
         width: 25rem;
@@ -15,9 +15,16 @@
         &-title {
             font-size: 26px;
             margin: 0;
+            display: block;
         }
         &-btn {
             margin-top: 2rem;
+        }
+        &-error {
+            margin: 0;
+            padding-top: 10px;
+            color: red;
+            font-size: 13px;
         }
     }
 }
