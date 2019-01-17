@@ -1,24 +1,16 @@
-@import "variables";
-@import "../components/Actions/Actions";
-@import "../components/Actions/ActionCard/ActionCard";
-@import "../components/Actions/ActionModal/ActionModal";
-@import "../components/Actions/ActionsList/ActionsList";
-@import "../components/Header/Header";
-@import "../components/Register/Register";
-@import "../components/SideBar/SideBar";
-
+@import 'variables';
+@import './imports.scss';
 
 // >>> FONTS : Montserrat, Roboto <<<
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500|Roboto');
 
-
 body {
-    margin: 0;
-    color: #444;
-    background-color: #fafafa;
-    font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  color: #444;
+  background-color: #fafafa;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .capitalize {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
