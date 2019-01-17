@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import theme from './theme';
 
 import Main from './components/Main';
+import Login from './components/Login';
 import Register from './components/Register';
 
 class App extends Component {
@@ -13,8 +14,9 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Router>
           <Switch>
-            <Route path='/main' exact component={Main} />
-            <Route path='/register' component={Register} />
+            <Route path='/' exact component={Main} />
+            <Route path='/inscription' component={Register} />
+            <Route path='/connexion' component={Login} />
           </Switch>
         </Router>
       </MuiThemeProvider>

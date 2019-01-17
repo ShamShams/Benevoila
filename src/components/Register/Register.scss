@@ -28,4 +28,18 @@
       font-size: 13px;
     }
   }
+  &-validated {
+    padding-top: 1rem;
+    text-align: center;
+    a {
+      color: $red;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 3;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

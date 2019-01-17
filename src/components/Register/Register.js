@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 import { TextField } from '@material-ui/core';
 
 import ContainedButton from '../ContainedButton';
-
-import axios from 'axios';
 
 const inputs = [
   { name: 'firstname', label: 'Prénom' },
@@ -27,7 +27,7 @@ class Register extends Component {
     password: '',
     passwordConfirm: '',
     submitted: false,
-    registered: false,
+    registered: true,
     errorMsg: '',
   };
 
@@ -50,7 +50,6 @@ class Register extends Component {
       axios
         .post('http://localhost:3000/users/register', userInfos)
         .then(res => {
-          console.log(res);
           if (res.data.success) {
             this.setState({ registered: true });
           } else {
@@ -122,11 +121,27 @@ class Register extends Component {
       <div className='register'>
         <form className='register-form'>
           <h1 className='register-form-title'>Inscription</h1>
-          {this.state.errorMsg && <p className='register-form-error'>{this.state.errorMsg}</p>}
-          {inputs.map(this.renderInputs)}
-          <ContainedButton preset='blueButton' style='register-form-btn' onClick={this.handleSubmit}>
-            S'inscrire
-          </ContainedButton>
+          {this.state.registered ? (
+            <div className='register-validated'>
+              <p>Merci pour votre inscription. </p>
+              <p>
+                Nous sommes heureux de vous compter parmi nous. Vous pouvez maintenant vous inscrire
+                à nos actions.
+              </p>
+              <NavLink to='/'>Voir nos actions</NavLink>
+            </div>
+          ) : (
+            <Fragment>
+              {this.state.errorMsg && <p className='register-form-error'>{this.state.errorMsg}</p>}
+              {inputs.map(this.renderInputs)}
+              <ContainedButton
+                preset='blueButton'
+                style='register-form-btn'
+                onClick={this.handleSubmit}>
+                S'inscrire
+              </ContainedButton>
+            </Fragment>
+          )}
         </form>
       </div>
     );

@@ -8,9 +8,9 @@ const Main = ({}) => (
   <div>
     <SideBar />
     <Switch>
-      <Route path='/main' exact render={() => <Actions page='allActions' />} />
-      <Route path='/main/useractions' render={() => <Actions page='useractions' />} />
-      <Route path='/main/profile' />
+      <Route path='/' exact render={() => <Actions page='allActions' />} />
+      <Route path='/useractions' render={() => <Actions page='useractions' />} />
+      <Route path='/profile' />
     </Switch>
   </div>
 );
