@@ -1,30 +1,31 @@
+.login,
 .register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-form {
     display: flex;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    &-form {
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
-        width: 25rem;
-        margin-top: 2rem;
-        padding: 2rem;
-        background-color: #fff;
-        border-radius: 10px;
-        &-title {
-            font-size: 26px;
-            margin: 0;
-            display: block;
-        }
-        &-btn {
-            margin-top: 2rem;
-        }
-        &-error {
-            margin: 0;
-            padding-top: 10px;
-            color: red;
-            font-size: 13px;
-        }
+    width: 25rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    &-title {
+      font-size: 26px;
+      margin: 0;
+      display: block;
     }
+    &-btn {
+      margin-top: 2rem;
+    }
+    &-error {
+      margin: 0;
+      padding-top: 10px;
+      color: red;
+      font-size: 13px;
+    }
+  }
 }

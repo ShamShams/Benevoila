@@ -8,20 +8,18 @@ import Main from './components/Main';
 import Register from './components/Register';
 
 class App extends Component {
-    render() {
-        return (
-            <MuiThemeProvider theme={theme}>
-                <Router>
-                    <div>
-                        <Switch>
-                            <Route path="/main" exact component={Main}/>
-                            <Route path="/register" component={Register}/>
-                        </Switch>
-                    </div>
-                </Router>
-            </MuiThemeProvider>
-        );
-    }
+  render() {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route path='/main' exact component={Main} />
+            <Route path='/register' component={Register} />
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default App;
