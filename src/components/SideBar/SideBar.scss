@@ -16,6 +16,13 @@
         color: $red;
       }
     }
+    .deconnexion {
+      margin-top: 1.5rem;
+      span {
+        text-transform: none;
+        cursor: pointer;
+      }
+    }
   }
   .logo {
     text-align: center;

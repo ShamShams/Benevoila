@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 
-import Main from './components/Main';
-import Login from './components/Login';
-import Register from './components/Register';
+import Routes from './routes';
 
 class App extends Component {
+  state = { user: null };
+
+  componentDidMount = async () => {
+    await this.authenticate();
+  };
+
+  authenticate = async () => {
+    const token = localStorage.getItem('token');
+    let authenticated = null;
+    try {
+      authenticated = await axios.post('http://localhost:3000/authenticate', { token });
+      this.setState({ user: authenticated.data.user });
+    } catch (error) {
+      this.setState({ user: false });
+      console.log(error);
+    }
+  };
+
   render() {
+    const { user } = this.state;
+    console.log(user);
     return (
       <MuiThemeProvider theme={theme}>
-        <Router>
-          <Switch>
-            <Route path='/' exact component={Main} />
-            <Route path='/inscription' component={Register} />
-            <Route path='/connexion' component={Login} />
-          </Switch>
-        </Router>
+        <Routes user={user} authenticate={this.authenticate} />
       </MuiThemeProvider>
     );
   }

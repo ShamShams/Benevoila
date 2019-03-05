@@ -15,8 +15,10 @@ class ActionsList extends Component {
   };
 
   getActions() {
+    const token = localStorage.getItem('token');
+    const config = { headers: { 'x-access-token': token } };
     axios
-      .get('http://localhost:3000/actionsWithType')
+      .get('http://localhost:3000/actionsWithType', config)
       .then(res => {
         this.setState({ allActions: res.data, isLoading: false });
       })
@@ -35,7 +37,10 @@ class ActionsList extends Component {
     // Si le bénévole est déjà inscrit, l'action est supprimé de sa liste
     if (userActions.includes(action)) {
       const actionIndex = userActions.indexOf(action);
-      const updatedUserActions = [...userActions.slice(0, actionIndex), ...userActions.slice(actionIndex + 1)];
+      const updatedUserActions = [
+        ...userActions.slice(0, actionIndex),
+        ...userActions.slice(actionIndex + 1),
+      ];
       setTimeout(() => {
         this.setState({
           userActions: updatedUserActions,

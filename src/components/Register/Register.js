@@ -27,7 +27,7 @@ class Register extends Component {
     password: '',
     passwordConfirm: '',
     submitted: false,
-    registered: true,
+    registered: false,
     errorMsg: '',
   };
 
@@ -52,6 +52,7 @@ class Register extends Component {
         .then(res => {
           if (res.data.success) {
             this.setState({ registered: true });
+            localStorage.setItem('token', res.data.token);
           } else {
             this.setState({ errorMsg: res.data.msg });
           }
@@ -106,6 +107,7 @@ class Register extends Component {
         key={name}
         error={error}
         helperText={errorText}
+        name={name}
         label={label}
         value={this.state[name]}
         onChange={this.handleChange(name)}
