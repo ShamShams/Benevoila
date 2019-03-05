@@ -25,7 +25,7 @@ function PrivateRoute({ component: Component, user, authenticate }) {
     <Route
       render={props => {
         if (user) {
-          return <Component authenticate={authenticate} {...props} />;
+          return <Component authenticate={authenticate} user={user} {...props} />;
         } else if (user === false) {
           return (
             <Redirect

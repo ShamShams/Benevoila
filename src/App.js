@@ -27,7 +27,6 @@ class App extends Component {
 
   render() {
     const { user } = this.state;
-    console.log(user);
     return (
       <MuiThemeProvider theme={theme}>
         <Routes user={user} authenticate={this.authenticate} />

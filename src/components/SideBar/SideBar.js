@@ -11,12 +11,12 @@ const styles = () => ({
   drawer: { width: '16rem' },
 });
 
-const SideBar = ({ classes, authenticate }) => {
+const SideBar = ({ classes, user, authenticate }) => {
   const logOut = () => {
     localStorage.removeItem('token');
     authenticate();
   };
-
+  console.log(user);
   return (
     <Drawer variant='permanent' classes={{ paper: classes.drawer }}>
       <div className='sidebar'>
@@ -24,6 +24,13 @@ const SideBar = ({ classes, authenticate }) => {
           <NavLink to='/' className='link' exact>
             <img src={logoAcdlp} alt='Logo Au coeur de la précarité' />
           </NavLink>
+        </div>
+        <Divider />
+        <div className='sidebar-user'>
+          <p className='name'>
+            {user.firstname} {user.lastname}
+          </p>
+          <p className='role'>{user.role}</p>
         </div>
         <Divider />
         <nav className='navlinks'>
