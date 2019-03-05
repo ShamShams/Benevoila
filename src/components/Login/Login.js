@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import ContainedButton from '../ContainedButton';
 import { TextField } from '@material-ui/core';
@@ -82,10 +82,13 @@ class Login extends Component {
           <ContainedButton preset='blueButton' style='login-form-btn' onClick={this.handleSubmit}>
             Se connecter
           </ContainedButton>
+          <p className='login-bottom-link'>
+            Pas de compte bénévole ? <NavLink to='/inscription'>Inscrivez-vous</NavLink>{' '}
+          </p>
         </form>
       </div>
     );
   }
 }
 
-export default withRouter(Login);
+export default Login;
