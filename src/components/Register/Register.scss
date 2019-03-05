@@ -1,0 +1,50 @@
+.login,
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    &-title {
+      font-size: 26px;
+      margin: 0;
+      display: block;
+    }
+    &-btn {
+      margin-top: 2rem;
+    }
+    &-error {
+      margin: 0;
+      padding-top: 10px;
+      color: red;
+      font-size: 13px;
+    }
+  }
+  &-validated {
+    padding-top: 1rem;
+    text-align: center;
+    a {
+      color: $red;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 3;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &-bottom-link {
+    margin-top: 2rem;
+    font-size: 14px;
+    color: #555;
+  }
+}

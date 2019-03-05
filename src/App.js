@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import theme from './theme';
-import Main from './components/Main';
-import SideBar from './components/SideBar';
 
+import Routes from './routes';
 
 class App extends Component {
-    render() {
-        return (
-            <MuiThemeProvider theme={theme}>
-                <Router>
-                    <div>
-                        <SideBar />
-                        <Switch>
-                            <Route
-                                exact path="/"
-                                render={() => <Main page="allActions" />}
-                            />
-                            <Route
-                                path="/useractions"
-                                render={() => <Main page="useractions" />}
-                            />
-                            <Route path="/profile" component={Main} />
-                        </Switch>
-                    </div>
-                </Router>
-            </MuiThemeProvider>
-        );
+  state = { user: null };
+
+  componentDidMount = async () => {
+    await this.authenticate();
+  };
+
+  authenticate = async () => {
+    const token = localStorage.getItem('token');
+    let authenticated = null;
+    try {
+      authenticated = await axios.post('http://localhost:3000/authenticate', { token });
+      this.setState({ user: authenticated.data.user });
+    } catch (error) {
+      this.setState({ user: false });
+      console.log(error);
     }
+  };
+
+  render() {
+    const { user } = this.state;
+    console.log(user);
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Routes user={user} authenticate={this.authenticate} />
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default App;
