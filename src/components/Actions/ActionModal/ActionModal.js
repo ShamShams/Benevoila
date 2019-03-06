@@ -10,13 +10,14 @@ const ActionModal = ({
   start,
   end,
   isRegistered,
+  registrationId,
   handleRegister,
   close,
 }) => {
   const { name, description, address, zipcode, city, need } = action;
 
   const register = () => {
-    handleRegister(action);
+    handleRegister(action, isRegistered, registrationId);
     close();
   };
 
@@ -76,7 +77,7 @@ const ActionModal = ({
             </div>
             <div className='action-modal-button'>
               {isRegistered ? (
-                <ContainedButton preset='redButton' onClick={handleRegister}>
+                <ContainedButton preset='redButton' onClick={register}>
                   Je me désinscris
                 </ContainedButton>
               ) : (

@@ -9,16 +9,17 @@ class ActionsList extends Component {
   state = {
     allActions: [],
     userActions: [],
+    userRegistrations: [],
     isLoading: true,
     error: null,
   };
 
   componentDidMount = async () => {
-    await this.getActions();
+    await this.getAllActions();
     await this.getUserActions();
   };
 
-  getActions = async () => {
+  getAllActions = async () => {
     const token = localStorage.getItem('token');
     const config = { headers: { 'x-access-token': token } };
     let actions = null;
@@ -32,7 +33,7 @@ class ActionsList extends Component {
 
   getUserActions = async () => {
     const { user } = this.props;
-    // Récupère les inscriptions du user
+    // On récupère les inscriptions du user
     const token = localStorage.getItem('token');
     const config = { headers: { 'x-access-token': token } };
     let userRegistrations = null;
@@ -44,37 +45,54 @@ class ActionsList extends Component {
     } catch (error) {
       console.log(error);
     }
-    // Va chercher les actions auxquelles le user est inscrit
+    this.setState({ userRegistrations: userRegistrations.data });
+
+    // On va chercher les actions auxquelles le user est inscrit
     const userActions = userRegistrations.data.map(reg => {
       return this.state.allActions.find(action => action.action_id === reg.action_id);
     });
     this.setState({ userActions });
   };
 
-  handleRegister = async action => {
+  handleRegister = async (action, isRegistered, registrationId) => {
     const { user } = this.props;
 
     const headers = { headers: { 'x-access-token': localStorage.getItem('token') } };
     const data = { user_id: user.user_id, action_id: action.action_id };
 
     // Si le bénévole est déjà inscrit, l'action est supprimé de sa liste
-    // if () {
+    if (isRegistered) {
+      let deletedRegistration = null;
+      try {
+        deletedRegistration = await axios.delete(
+          `http://localhost:3000/registrations/delete/${registrationId}`,
+          headers
+        );
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(deletedRegistration.data.msg);
+      this.getUserActions();
 
-    // sinon l'action est ajoutée
-    // } else {
-    let registration = null;
-    try {
-      registration = await axios.post('http://localhost:3000/registrations/create', data, headers);
-    } catch (error) {
-      console.log(error);
+      // sinon l'action est ajoutée
+    } else {
+      let registration = null;
+      try {
+        registration = await axios.post(
+          'http://localhost:3000/registrations/create',
+          data,
+          headers
+        );
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(registration.data.msg);
+      this.getUserActions();
     }
-    console.log(registration.data.msg);
-    this.getUserActions();
-    // }
   };
 
   render() {
-    const { allActions, userActions, isLoading, error } = this.state;
+    const { allActions, userActions, userRegistrations, isLoading, error } = this.state;
     const { page, user } = this.props;
 
     const actionsList = page === 'useractions' ? userActions : allActions;
@@ -87,20 +105,15 @@ class ActionsList extends Component {
             .sort((a, b) => {
               return new Date(a.start_date) - new Date(b.start_date);
             })
-            .map(action => {
-              const isRegistered = userActions.some(
-                userAction => action.action_id === userAction.action_id
-              );
-              return (
-                <ActionCard
-                  key={action.action_id}
-                  action={action}
-                  user={user}
-                  isRegistered={isRegistered}
-                  handleRegister={this.handleRegister}
-                />
-              );
-            })
+            .map(action => (
+              <ActionCard
+                key={action.action_id}
+                action={action}
+                user={user}
+                userRegistrations={userRegistrations}
+                handleRegister={this.handleRegister}
+              />
+            ))
         ) : (
           <Loader />
         )}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import moment from 'moment';
 moment.locale('fr');
@@ -42,13 +41,17 @@ class ActionCard extends Component {
   };
 
   render() {
-    const { classes, action, isRegistered, handleRegister } = this.props;
+    const { classes, action, userRegistrations, handleRegister } = this.props;
     const { dialogOpen, expansionPanelOpen } = this.state;
     const { name, description, start_date, end_date, address, zipcode, city, need } = action;
 
     const action_date = moment(start_date).format('dddd DD MMMM YYYY');
     const start_time = moment(start_date).format('HH:mm');
     const end_time = moment(end_date).format('HH:mm');
+
+    const registration = userRegistrations.find(reg => action.action_id === reg.action_id);
+    const registrationId = registration && registration.registration_id;
+    const isRegistered = registrationId !== undefined;
 
     const button = isRegistered ? (
       <ContainedButton preset='redButton' onClick={this.openDialog}>
@@ -124,9 +127,10 @@ class ActionCard extends Component {
           date={action_date}
           start={start_time}
           end={end_time}
+          isRegistered={isRegistered}
+          registrationId={registrationId}
           handleRegister={handleRegister}
           close={this.closeDialog}
-          isRegistered={isRegistered}
         />
       </div>
     );
