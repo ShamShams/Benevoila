@@ -20,6 +20,7 @@ const SideBar = ({ classes, user, authenticate }) => {
   return (
     <Drawer variant='permanent' classes={{ paper: classes.drawer }}>
       <div className='sidebar'>
+        <div className='benevoila'>Bénévoilà</div>
         <div className='logo'>
           <NavLink to={`/actions`} className='link' exact>
             <img src={logoAcdlp} alt='Logo Au coeur de la précarité' />
