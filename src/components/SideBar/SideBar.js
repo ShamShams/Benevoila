@@ -21,7 +21,7 @@ const SideBar = ({ classes, user, authenticate }) => {
     <Drawer variant='permanent' classes={{ paper: classes.drawer }}>
       <div className='sidebar'>
         <div className='logo'>
-          <NavLink to='/' className='link' exact>
+          <NavLink to={`/actions`} className='link' exact>
             <img src={logoAcdlp} alt='Logo Au coeur de la précarité' />
           </NavLink>
         </div>
@@ -35,17 +35,17 @@ const SideBar = ({ classes, user, authenticate }) => {
         <Divider />
         <nav className='navlinks'>
           <li>
-            <NavLink to='/' className='link' exact>
+            <NavLink to={`/actions`} className='link' exact>
               Toutes les actions
             </NavLink>
           </li>
           <li>
-            <NavLink to='/mes-actions' className='link'>
+            <NavLink to={`/mes-actions`} className='link'>
               Mes actions
             </NavLink>
           </li>
           <li>
-            <NavLink to='/profil' className='link'>
+            <NavLink to={`/profil`} className='link'>
               Mon profil
             </NavLink>
           </li>

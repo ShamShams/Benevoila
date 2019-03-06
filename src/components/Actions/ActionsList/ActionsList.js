@@ -93,9 +93,9 @@ class ActionsList extends Component {
 
   render() {
     const { allActions, userActions, userRegistrations, isLoading, error } = this.state;
-    const { page, user } = this.props;
+    const { user, page } = this.props;
 
-    const actionsList = page === 'useractions' ? userActions : allActions;
+    const actionsList = page === 'mes-actions' ? userActions : allActions;
 
     return (
       <div className={isLoading ? 'loader' : 'action-list'}>
