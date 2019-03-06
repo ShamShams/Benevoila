@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
+import Actions from './components/Actions';
 import Loader from './components/Loader';
 import Login from './components/Login';
-import Main from './components/Main';
 import Register from './components/Register';
 
 class Routes extends Component {
@@ -11,7 +11,13 @@ class Routes extends Component {
     return (
       <Router>
         <Switch>
-          <PrivateRoute path='/' exact component={Main} {...this.props} />
+          <PrivateRoute path='/actions' component={Actions} page='actions' {...this.props} />
+          <PrivateRoute
+            path='/mes-actions'
+            component={Actions}
+            page='mes-actions'
+            {...this.props}
+          />
           <PublicRoute path='/inscription' component={Register} {...this.props} />
           <PublicRoute path='/connexion' component={Login} {...this.props} />
         </Switch>
@@ -20,12 +26,12 @@ class Routes extends Component {
   }
 }
 
-function PrivateRoute({ component: Component, user, authenticate }) {
+function PrivateRoute({ component: Component, user, authenticate, page }) {
   return (
     <Route
       render={props => {
         if (user) {
-          return <Component authenticate={authenticate} {...props} />;
+          return <Component authenticate={authenticate} user={user} page={page} {...props} />;
         } else if (user === false) {
           return (
             <Redirect
@@ -52,7 +58,7 @@ function PublicRoute({ component: Component, user, authenticate }) {
         if (user === false) {
           return <Component authenticate={authenticate} {...props} />;
         } else if (user) {
-          return <Redirect to='/' />;
+          return <Redirect to='/actions' />;
         } else {
           return <Loader />;
         }

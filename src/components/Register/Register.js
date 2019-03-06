@@ -35,7 +35,29 @@ class Register extends Component {
     this.setState({ [name]: event.target.value });
   };
 
-  handleSubmit = () => {
+  showError() {
+    const { email, phone, password, passwordConfirm } = this.state;
+    return {
+      email: {
+        error: !emailRegex.test(email),
+        text: 'Cet e-mail n’est pas valide',
+      },
+      phone: {
+        error: !phoneRegex.test(phone),
+        text: 'Ce numéro n’est pas valide',
+      },
+      password: {
+        error: password.length < 6,
+        text: 'Le mot de passe doit comporter au moins 6 caractères',
+      },
+      passwordConfirm: {
+        error: passwordConfirm !== password,
+        text: 'Les mots de passe ne correspondent pas',
+      },
+    };
+  }
+
+  register = () => {
     this.setState({ submitted: true });
     // On vérifie que les champs du formulaires ne sont pas vides
     const { firstname, lastname, email, phone, password, passwordConfirm } = this.state;
@@ -64,27 +86,9 @@ class Register extends Component {
     }
   };
 
-  showError() {
-    const { email, phone, password, passwordConfirm } = this.state;
-    return {
-      email: {
-        error: !emailRegex.test(email),
-        text: 'Cet e-mail n’est pas valide',
-      },
-      phone: {
-        error: !phoneRegex.test(phone),
-        text: 'Ce numéro n’est pas valide',
-      },
-      password: {
-        error: password.length < 6,
-        text: 'Le mot de passe doit comporter au moins 6 caractères',
-      },
-      passwordConfirm: {
-        error: passwordConfirm !== password,
-        text: 'Les mots de passe ne correspondent pas',
-      },
-    };
-  }
+  goToMain = () => {
+    this.props.authenticate();
+  };
 
   renderInputs = input => {
     const errors = this.showError();
@@ -130,7 +134,7 @@ class Register extends Component {
                 Nous sommes heureux de vous compter parmi nous. Vous pouvez maintenant vous inscrire
                 à nos actions.
               </p>
-              <NavLink to='/'>Voir nos actions</NavLink>
+              <a onClick={this.goToMain}>Voir nos actions</a>
             </div>
           ) : (
             <Fragment>
@@ -139,7 +143,7 @@ class Register extends Component {
               <ContainedButton
                 preset='blueButton'
                 style='register-form-btn'
-                onClick={this.handleSubmit}>
+                onClick={this.register}>
                 S'inscrire
               </ContainedButton>
               <p className='register-bottom-link'>

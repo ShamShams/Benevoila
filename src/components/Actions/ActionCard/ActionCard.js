@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import moment from 'moment';
 moment.locale('fr');
 
-import { Divider, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
+import {
+  Divider,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -12,6 +18,7 @@ import ActionModal from '../ActionModal';
 
 const styles = () => ({
   root: {
+    // Permet d'éviter d'ouvrir le panel quand on clique n'importe où sur tout le panel mais seulement quand on clique sur la flèche
     '&:hover:not(.MuiExpansionPanelSummary-disabled-62)': {
       cursor: 'auto',
     },
@@ -24,6 +31,28 @@ class ActionCard extends Component {
   state = {
     dialogOpen: false,
     expansionPanelOpen: false,
+    actionRegistrations: [],
+  };
+
+  componentDidMount = async () => {
+    await this.getActionRegistrations();
+  };
+
+  getActionRegistrations = async () => {
+    const { action_id } = this.props.action;
+    // On récupère les inscriptions du user
+    const token = localStorage.getItem('token');
+    const config = { headers: { 'x-access-token': token } };
+    let actionRegistrations = null;
+    try {
+      actionRegistrations = await axios.get(
+        `http://localhost:3000/registrations/action/${action_id}`,
+        config
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({ actionRegistrations: actionRegistrations.data });
   };
 
   openDialog = () => {
@@ -34,21 +63,23 @@ class ActionCard extends Component {
     this.setState({ dialogOpen: false });
   };
 
-  handleRegister = () => {
-    this.props.handleClick();
-    this.setState({ dialogOpen: false });
-  };
-
   render() {
-    const { classes, action, registered } = this.props;
-    const { dialogOpen, expansionPanelOpen } = this.state;
+    const { dialogOpen, expansionPanelOpen, actionRegistrations } = this.state;
+    const { classes, action, userRegistrations, handleRegister } = this.props;
     const { name, description, start_date, end_date, address, zipcode, city, need } = action;
 
     const action_date = moment(start_date).format('dddd DD MMMM YYYY');
     const start_time = moment(start_date).format('HH:mm');
     const end_time = moment(end_date).format('HH:mm');
 
-    const button = registered ? (
+    const registrationsNumber = actionRegistrations && actionRegistrations.length;
+    const manquant = registrationsNumber > need ? 0 : need - registrationsNumber;
+
+    const registration = userRegistrations.find(reg => action.action_id === reg.action_id);
+    const registrationId = registration && registration.registration_id;
+    const isRegistered = registrationId !== undefined;
+
+    const button = isRegistered ? (
       <ContainedButton preset='redButton' onClick={this.openDialog}>
         Je me désinscris
       </ContainedButton>
@@ -85,10 +116,10 @@ class ActionCard extends Component {
               </div>
               <div className='action-card-vlt-infos'>
                 <p>
-                  Inscrits :<span className='action-card-vlt-reg'>0</span>
+                  Inscrits :<span className='action-card-vlt-reg'>{registrationsNumber}</span>
                 </p>
                 <p>
-                  Manquants :<span className='action-card-vlt-needed'>{need}</span>
+                  Manquants :<span className='action-card-vlt-needed'>{manquant}</span>
                 </p>
               </div>
               <div className='action-card-button'>{button}</div>
@@ -118,18 +149,17 @@ class ActionCard extends Component {
         </ExpansionPanel>
         <ActionModal
           dialogOpen={dialogOpen}
-          name={name}
+          close={this.closeDialog}
+          action={action}
           date={action_date}
           start={start_time}
           end={end_time}
-          address={address}
-          zipcode={zipcode}
-          city={city}
-          description={description}
-          need={need}
-          handleRegister={this.handleRegister}
-          close={this.closeDialog}
-          isRegistered={registered}
+          isRegistered={isRegistered}
+          registrationId={registrationId}
+          registrationsNumber={registrationsNumber}
+          manquant={manquant}
+          handleRegister={handleRegister}
+          getActionRegistrations={this.getActionRegistrations}
         />
       </div>
     );
