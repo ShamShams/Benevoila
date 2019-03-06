@@ -82,8 +82,11 @@ class Login extends Component {
           <ContainedButton preset='blueButton' style='login-form-btn' onClick={this.handleSubmit}>
             Se connecter
           </ContainedButton>
-          <p className='login-bottom-link'>
-            Pas de compte bénévole ? <NavLink to='/inscription'>Inscrivez-vous</NavLink>{' '}
+          <p className='login-bottom'>
+            Pas de compte bénévole ?{' '}
+            <NavLink className='login-bottom-link' to='/inscription'>
+              Inscrivez-vous
+            </NavLink>{' '}
           </p>
         </form>
       </div>

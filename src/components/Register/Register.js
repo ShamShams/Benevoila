@@ -146,8 +146,11 @@ class Register extends Component {
                 onClick={this.register}>
                 S'inscrire
               </ContainedButton>
-              <p className='register-bottom-link'>
-                Déjà inscrit ? <NavLink to='/connexion'>Connectez-vous</NavLink>{' '}
+              <p className='register-bottom'>
+                Déjà inscrit ?{' '}
+                <NavLink className='register-bottom-link' to='/connexion'>
+                  Connectez-vous
+                </NavLink>{' '}
               </p>
             </Fragment>
           )}
