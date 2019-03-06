@@ -5,7 +5,6 @@ import ActionsList from './ActionsList';
 import SideBar from '../SideBar';
 
 const Actions = props => {
-  console.log(props);
   const title = props.page === 'mes-actions' ? 'Mes actions' : 'Toutes les actions';
 
   return (

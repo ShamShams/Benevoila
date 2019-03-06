@@ -11,13 +11,17 @@ const ActionModal = ({
   end,
   isRegistered,
   registrationId,
+  registrationsNumber,
+  manquant,
   handleRegister,
+  getActionRegistrations,
   close,
 }) => {
-  const { name, description, address, zipcode, city, need } = action;
+  const { name, description, address, zipcode, city } = action;
 
-  const register = () => {
-    handleRegister(action, isRegistered, registrationId);
+  const register = async () => {
+    await handleRegister(action, isRegistered, registrationId);
+    getActionRegistrations();
     close();
   };
 
@@ -63,10 +67,10 @@ const ActionModal = ({
               <h4>Nombre de bénévoles</h4>
               <div className='action-modal-vlt-infos'>
                 <p>
-                  Inscrits :<span className='action-card-vlt-reg'>0</span>
+                  Inscrits :<span className='action-card-vlt-reg'>{registrationsNumber}</span>
                 </p>
                 <p>
-                  Manquants :<span className='action-card-vlt-needed'>{need}</span>
+                  Manquants :<span className='action-card-vlt-needed'>{manquant}</span>
                 </p>
               </div>
             </div>

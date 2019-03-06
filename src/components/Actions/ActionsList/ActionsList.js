@@ -92,7 +92,7 @@ class ActionsList extends Component {
   };
 
   render() {
-    const { allActions, userActions, userRegistrations, isLoading, error } = this.state;
+    const { allActions, userActions, isLoading, error } = this.state;
     const { user, page } = this.props;
 
     const actionsList = page === 'mes-actions' ? userActions : allActions;
@@ -122,8 +122,8 @@ class ActionsList extends Component {
                 key={action.action_id}
                 action={action}
                 user={user}
-                userRegistrations={userRegistrations}
                 handleRegister={this.handleRegister}
+                {...this.state}
               />
             ))}
         </div>
