@@ -96,12 +96,24 @@ class ActionsList extends Component {
     const { user, page } = this.props;
 
     const actionsList = page === 'mes-actions' ? userActions : allActions;
+    const noActionText =
+      page === 'mes-actions'
+        ? 'Vous n’êtes inscrit à aucune action'
+        : 'Il n’y a aucune action proposée';
 
-    return (
-      <div className={isLoading ? 'loader' : 'action-list'}>
-        {error ? <p>{error.message}</p> : null}
-        {!isLoading ? (
-          actionsList
+    if (isLoading) {
+      return (
+        <div className='loader'>
+          <Loader />
+        </div>
+      );
+    } else if (!actionsList.length) {
+      return <div className='no-action-text'>{noActionText}</div>;
+    } else {
+      return (
+        <div className='action-list'>
+          {error ? <p>{error.message}</p> : null}
+          {actionsList
             .sort((a, b) => {
               return new Date(a.start_date) - new Date(b.start_date);
             })
@@ -113,12 +125,10 @@ class ActionsList extends Component {
                 userRegistrations={userRegistrations}
                 handleRegister={this.handleRegister}
               />
-            ))
-        ) : (
-          <Loader />
-        )}
-      </div>
-    );
+            ))}
+        </div>
+      );
+    }
   }
 }
 
