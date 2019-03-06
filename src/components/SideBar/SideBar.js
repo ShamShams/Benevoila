@@ -16,7 +16,7 @@ const SideBar = ({ classes, user, authenticate }) => {
     localStorage.removeItem('token');
     authenticate();
   };
-  console.log(user);
+
   return (
     <Drawer variant='permanent' classes={{ paper: classes.drawer }}>
       <div className='sidebar'>
