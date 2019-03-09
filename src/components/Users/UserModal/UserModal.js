@@ -8,8 +8,8 @@ const UserModal = ({ dialogOpen, close, registeredUsers }) => {
     <div className='user-modal'>
       <Dialog open={dialogOpen} aria-labelledby='alert-dialog-title'>
         <div className='user-modal-close'>
-          <IconButton>
-            <CloseIcon onClick={close} />
+          <IconButton onClick={close}>
+            <CloseIcon />
           </IconButton>
         </div>
         <DialogContent>
