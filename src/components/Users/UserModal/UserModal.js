@@ -20,7 +20,7 @@ const UserModal = ({ dialogOpen, close, registeredUsers }) => {
           </div>
           <List>
             {registeredUsers.map(user => (
-              <ListItem>
+              <ListItem key={user.user_id}>
                 <ListItemText
                   primary={`${user.firstname} ${user.lastname}`}
                   secondary={`${user.phone} - ${user.email}`}

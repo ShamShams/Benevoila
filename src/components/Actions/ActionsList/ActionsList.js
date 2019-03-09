@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import ActionCard from '../ActionCard';
-// import FullTabs from '../FullTabs';
 import Loader from '../../Loader';
 
 class ActionsList extends Component {

@@ -43,7 +43,7 @@ const SideBar = ({ classes, user, authenticate }) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={`/benevoles`} className='link'>
+                <NavLink to={`/admin-benevoles`} className='link'>
                   Les bénévoles
                 </NavLink>
               </li>

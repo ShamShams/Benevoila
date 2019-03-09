@@ -85,7 +85,7 @@ class ActionCard extends Component {
   };
 
   render() {
-    const { dialogOpen, expansionPanelOpen, actionRegistrations, registeredUsers } = this.state;
+    const { dialogOpen, expansionPanelOpen, actionRegistrations } = this.state;
     const { classes, action, user, userRegistrations, handleRegister } = this.props;
     const { name, description, start_date, end_date, address, zipcode, city, need } = action;
 
