@@ -15,10 +15,10 @@ import { withStyles } from '@material-ui/core/styles';
 
 import ContainedButton from '../../ContainedButton';
 import ActionModal from '../ActionModal';
+import UserModal from '../../Users/UserModal/UserModal';
 
 const styles = () => ({
   root: {
-    // Permet d'éviter d'ouvrir le panel quand on clique n'importe où sur tout le panel mais seulement quand on clique sur la flèche
     '&:hover:not(.MuiExpansionPanelSummary-disabled-62)': {
       cursor: 'auto',
     },
@@ -32,10 +32,12 @@ class ActionCard extends Component {
     dialogOpen: false,
     expansionPanelOpen: false,
     actionRegistrations: [],
+    registeredUsers: [],
   };
 
   componentDidMount = async () => {
     await this.getActionRegistrations();
+    await this.getRegisteredUsers();
   };
 
   getActionRegistrations = async () => {
@@ -55,6 +57,25 @@ class ActionCard extends Component {
     this.setState({ actionRegistrations: actionRegistrations.data });
   };
 
+  getRegisteredUsers = async () => {
+    const { actionRegistrations } = this.state;
+
+    const token = localStorage.getItem('token');
+    const config = { headers: { 'x-access-token': token } };
+    let registeredUsers = [];
+
+    actionRegistrations.forEach(async reg => {
+      let user = null;
+      try {
+        user = await axios.get(`http://localhost:3000/users/${reg.user_id}`, config);
+      } catch (error) {
+        console.log(error);
+      }
+      registeredUsers.push(user.data);
+    });
+    this.setState({ registeredUsers });
+  };
+
   openDialog = () => {
     this.setState({ dialogOpen: true });
   };
@@ -65,7 +86,7 @@ class ActionCard extends Component {
 
   render() {
     const { dialogOpen, expansionPanelOpen, actionRegistrations } = this.state;
-    const { classes, action, userRegistrations, handleRegister } = this.props;
+    const { classes, action, user, userRegistrations, handleRegister } = this.props;
     const { name, description, start_date, end_date, address, zipcode, city, need } = action;
 
     const action_date = moment(start_date).format('dddd DD MMMM YYYY');
@@ -79,7 +100,13 @@ class ActionCard extends Component {
     const registrationId = registration && registration.registration_id;
     const isRegistered = registrationId !== undefined;
 
-    const button = isRegistered ? (
+    const isAdmin = user.role === 'admin';
+
+    const button = isAdmin ? (
+      <ContainedButton preset='blueButton' onClick={this.openDialog}>
+        Voir les inscrits
+      </ContainedButton>
+    ) : isRegistered ? (
       <ContainedButton preset='redButton' onClick={this.openDialog}>
         Je me désinscris
       </ContainedButton>
@@ -147,20 +174,24 @@ class ActionCard extends Component {
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ActionModal
-          dialogOpen={dialogOpen}
-          close={this.closeDialog}
-          action={action}
-          date={action_date}
-          start={start_time}
-          end={end_time}
-          isRegistered={isRegistered}
-          registrationId={registrationId}
-          registrationsNumber={registrationsNumber}
-          manquant={manquant}
-          handleRegister={handleRegister}
-          getActionRegistrations={this.getActionRegistrations}
-        />
+        {isAdmin ? (
+          <UserModal close={this.closeDialog} {...this.state} {...this.props} />
+        ) : (
+          <ActionModal
+            dialogOpen={dialogOpen}
+            close={this.closeDialog}
+            action={action}
+            date={action_date}
+            start={start_time}
+            end={end_time}
+            isRegistered={isRegistered}
+            registrationId={registrationId}
+            registrationsNumber={registrationsNumber}
+            manquant={manquant}
+            handleRegister={handleRegister}
+            getActionRegistrations={this.getActionRegistrations}
+          />
+        )}
       </div>
     );
   }
