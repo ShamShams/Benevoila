@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { NavLink, withRouter } from 'react-router-dom';
 
@@ -35,21 +35,33 @@ const SideBar = ({ classes, user, authenticate }) => {
         </div>
         <Divider />
         <nav className='navlinks'>
-          <li>
-            <NavLink to={`/actions`} className='link' exact>
-              Toutes les actions
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={`/mes-actions`} className='link'>
-              Mes actions
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={`/profil`} className='link'>
-              Mon profil
-            </NavLink>
-          </li>
+          {user.role === 'admin' ? (
+            <Fragment>
+              <li>
+                <NavLink to={`/admin-actions`} className='link' exact>
+                  Les actions
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/benevoles`} className='link'>
+                  Les bénévoles
+                </NavLink>
+              </li>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <li>
+                <NavLink to={`/actions`} className='link' exact>
+                  Toutes les actions
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/mes-actions`} className='link'>
+                  Mes actions
+                </NavLink>
+              </li>
+            </Fragment>
+          )}
           <Divider />
           <div className='deconnexion'>
             <span className='link' onClick={logOut}>

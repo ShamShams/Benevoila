@@ -93,11 +93,11 @@ class ActionsList extends Component {
 
   render() {
     const { allActions, userActions, isLoading, error } = this.state;
-    const { user, page } = this.props;
+    const { page } = this.props;
 
-    const actionsList = page === 'mes-actions' ? userActions : allActions;
+    const actionsList = page === 'userActions' ? userActions : allActions;
     const noActionText =
-      page === 'mes-actions'
+      page === 'userActions'
         ? 'Vous n’êtes inscrit à aucune action'
         : 'Il n’y a aucune action proposée';
 
@@ -121,9 +121,9 @@ class ActionsList extends Component {
               <ActionCard
                 key={action.action_id}
                 action={action}
-                user={user}
                 handleRegister={this.handleRegister}
                 {...this.state}
+                {...this.props}
               />
             ))}
         </div>

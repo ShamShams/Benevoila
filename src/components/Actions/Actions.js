@@ -4,8 +4,14 @@ import Header from '../Header';
 import ActionsList from './ActionsList';
 import SideBar from '../SideBar';
 
+const titles = {
+  actions: 'Toutes les actions',
+  userActions: 'Mes actions',
+  admin: 'Les actions',
+};
+
 const Actions = props => {
-  const title = props.page === 'mes-actions' ? 'Mes actions' : 'Toutes les actions';
+  const title = titles[props.page];
 
   return (
     <div>
