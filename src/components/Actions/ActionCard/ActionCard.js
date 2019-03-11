@@ -33,11 +33,13 @@ class ActionCard extends Component {
     expansionPanelOpen: false,
     actionRegistrations: [],
     registeredUsers: [],
+    referent: {},
   };
 
   componentDidMount = async () => {
     await this.getActionRegistrations();
     await this.getRegisteredUsers();
+    await this.getReferent();
   };
 
   getActionRegistrations = async () => {
@@ -76,6 +78,19 @@ class ActionCard extends Component {
     this.setState({ registeredUsers });
   };
 
+  getReferent = async () => {
+    const { referent_id } = this.props.action;
+    const token = localStorage.getItem('token');
+    const config = { headers: { 'x-access-token': token } };
+    let referent = null;
+    try {
+      referent = await axios.get(`http://localhost:3000/users/${referent_id}`, config);
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({ referent: referent.data });
+  };
+
   openDialog = () => {
     this.setState({ dialogOpen: true });
   };
@@ -85,7 +100,7 @@ class ActionCard extends Component {
   };
 
   render() {
-    const { dialogOpen, expansionPanelOpen, actionRegistrations } = this.state;
+    const { dialogOpen, expansionPanelOpen, actionRegistrations, referent } = this.state;
     const { classes, action, user, userRegistrations, handleRegister } = this.props;
     const { name, description, start_date, end_date, address, zipcode, city, need } = action;
 
@@ -161,12 +176,15 @@ class ActionCard extends Component {
                 <h4>Description</h4>
                 <p>{description}</p>
               </div>
-              <div>
-                <h4>Référent</h4>
-                <p>
-                  Amine Zerrougui <br /> 06 17 08 67 05 <br /> azerrougui@asso.com
-                </p>
-              </div>
+              {referent && (
+                <div>
+                  <h4>Référent</h4>
+                  <p>
+                    {referent.firstname} {referent.lastname} <br /> {referent.phone} <br />{' '}
+                    {referent.email}
+                  </p>
+                </div>
+              )}
               <div>
                 <h4>Adresse</h4>
                 <p>
