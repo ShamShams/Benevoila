@@ -106,10 +106,6 @@ class CreateAction extends Component {
     }
   };
 
-  goBack = () => {
-    this.props.history.push('admin-actions');
-  };
-
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -241,7 +237,9 @@ class CreateAction extends Component {
           </form>
           <p className='create-action-error'>{error ? error : ''}</p>
           <div className='create-action-buttons'>
-            <ContainedButton onClick={this.goBack}>Retour aux actions</ContainedButton>
+            <ContainedButton onClick={() => this.props.history.push('admin-actions')}>
+              Retour aux actions
+            </ContainedButton>
             <ContainedButton preset='blueButton' onClick={this.createAction}>
               Créer l'action
             </ContainedButton>
