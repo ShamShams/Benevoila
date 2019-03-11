@@ -111,11 +111,12 @@ class ActionsList extends Component {
     } else {
       return (
         <div className='action-list'>
+          <p className='action-list-total'>
+            Total : <span>{actionsList.length}</span>
+          </p>
           {error ? <p>{error.message}</p> : null}
           {actionsList
-            .sort((a, b) => {
-              return new Date(a.start_date) - new Date(b.start_date);
-            })
+            .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
             .map(action => (
               <ActionCard
                 key={action.action_id}

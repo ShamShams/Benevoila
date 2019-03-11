@@ -1,5 +1,17 @@
 .action-list {
-  margin-top: 1rem;
+  &-total {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    margin-right: 0.5rem;
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    span {
+      font-size: 15px;
+    }
+  }
 }
 
 .loader {

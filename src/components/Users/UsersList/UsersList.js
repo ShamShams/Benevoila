@@ -38,9 +38,14 @@ class UsersList extends Component {
     } else {
       return (
         <div className='users-list'>
-          {users.map(user => (
-            <UserCard key={user.user_id} user={user} />
-          ))}
+          <p className='users-list-total'>
+            Total : <span>{users.length}</span>
+          </p>
+          {users
+            .sort((a, b) => a.firstname.localeCompare(b.firstname))
+            .map(user => (
+              <UserCard key={user.user_id} user={user} />
+            ))}
         </div>
       );
     }

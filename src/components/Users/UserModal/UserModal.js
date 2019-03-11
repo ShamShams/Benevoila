@@ -19,14 +19,16 @@ const UserModal = ({ dialogOpen, close, registeredUsers }) => {
             </p>
           </div>
           <List>
-            {registeredUsers.map(user => (
-              <ListItem key={user.user_id}>
-                <ListItemText
-                  primary={`${user.firstname} ${user.lastname}`}
-                  secondary={`${user.phone} - ${user.email}`}
-                />
-              </ListItem>
-            ))}
+            {registeredUsers
+              .sort((a, b) => a.firstname.localeCompare(b.firstname))
+              .map(user => (
+                <ListItem key={user.user_id}>
+                  <ListItemText
+                    primary={`${user.firstname} ${user.lastname}`}
+                    secondary={`${user.phone} - ${user.email}`}
+                  />
+                </ListItem>
+              ))}
           </List>
         </DialogContent>
       </Dialog>
