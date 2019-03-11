@@ -4,7 +4,7 @@ import { Button, Dialog, DialogContent } from '@material-ui/core';
 import ContainedButton from '../../ContainedButton';
 
 const ActionModal = ({
-  dialogOpen,
+  actionModalOpen,
   action,
   date,
   start,
@@ -27,7 +27,7 @@ const ActionModal = ({
 
   return (
     <div>
-      <Dialog open={dialogOpen} aria-labelledby='alert-dialog-title'>
+      <Dialog open={actionModalOpen} aria-labelledby='alert-dialog-title'>
         <DialogContent>
           <div className='action-modal-header'>
             {isRegistered ? (

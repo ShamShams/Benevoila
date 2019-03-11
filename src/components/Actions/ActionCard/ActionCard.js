@@ -5,12 +5,16 @@ import moment from 'moment';
 moment.locale('fr');
 
 import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
   Divider,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Delete, Edit, ExpandMore } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
 import ContainedButton from '../../ContainedButton';
@@ -29,7 +33,9 @@ const styles = () => ({
 
 class ActionCard extends Component {
   state = {
-    dialogOpen: false,
+    actionModalOpen: false,
+    userModalOpen: false,
+    confirmModalOpen: false,
     expansionPanelOpen: false,
     actionRegistrations: [],
     registeredUsers: [],
@@ -91,17 +97,31 @@ class ActionCard extends Component {
     this.setState({ referent: referent.data });
   };
 
-  openDialog = () => {
-    this.setState({ dialogOpen: true });
+  openModal = name => {
+    this.setState({ [name]: true });
   };
 
-  closeDialog = () => {
-    this.setState({ dialogOpen: false });
+  closeModal = name => {
+    this.setState({ [name]: false });
   };
 
   render() {
-    const { dialogOpen, expansionPanelOpen, actionRegistrations, referent } = this.state;
-    const { classes, action, user, userRegistrations, handleRegister } = this.props;
+    const {
+      classes,
+      action,
+      user,
+      userRegistrations,
+      handleRegister,
+      deleteAction,
+      editAction,
+    } = this.props;
+    const {
+      actionModalOpen,
+      confirmModalOpen,
+      expansionPanelOpen,
+      actionRegistrations,
+      referent,
+    } = this.state;
     const { name, description, start_date, end_date, address, zipcode, city, need } = action;
 
     const action_date = moment(start_date).format('dddd DD MMMM YYYY');
@@ -119,16 +139,16 @@ class ActionCard extends Component {
 
     const button = isAdmin ? (
       registrationsNumber ? (
-        <ContainedButton preset='blueButton' onClick={this.openDialog}>
+        <ContainedButton preset='blueButton' onClick={() => this.openModal('userModalOpen')}>
           Voir les inscrits
         </ContainedButton>
       ) : null
     ) : isRegistered ? (
-      <ContainedButton preset='redButton' onClick={this.openDialog}>
+      <ContainedButton preset='redButton' onClick={() => this.openModal('actionModalOpen')}>
         Je me désinscris
       </ContainedButton>
     ) : (
-      <ContainedButton preset='blueButton' onClick={this.openDialog}>
+      <ContainedButton preset='blueButton' onClick={() => this.openModal('actionModalOpen')}>
         Je m'inscris
       </ContainedButton>
     );
@@ -138,7 +158,7 @@ class ActionCard extends Component {
         <ExpansionPanel elevation={2} expanded={expansionPanelOpen}>
           <ExpansionPanelSummary
             expandIcon={
-              <ExpandMoreIcon
+              <ExpandMore
                 onClick={() => {
                   this.setState({
                     expansionPanelOpen: !this.state.expansionPanelOpen,
@@ -172,46 +192,75 @@ class ActionCard extends Component {
           <Divider light />
           <ExpansionPanelDetails classes={{ root: classes.details }}>
             <div className='action-card-details'>
-              <div className='action-card-description'>
-                <h4>Description</h4>
-                <p>{description}</p>
-              </div>
-              {referent && (
+              <div className='action-card-details-text'>
+                <div className='action-card-description'>
+                  <h4>Description</h4>
+                  <p>{description}</p>
+                </div>
+                {referent && (
+                  <div>
+                    <h4>Référent</h4>
+                    <p>
+                      {referent.firstname} {referent.lastname} <br /> {referent.phone} <br />{' '}
+                      {referent.email}
+                    </p>
+                  </div>
+                )}
                 <div>
-                  <h4>Référent</h4>
+                  <h4>Adresse</h4>
                   <p>
-                    {referent.firstname} {referent.lastname} <br /> {referent.phone} <br />{' '}
-                    {referent.email}
+                    {address} <br /> {zipcode} {city}
                   </p>
                 </div>
-              )}
-              <div>
-                <h4>Adresse</h4>
-                <p>
-                  {address} <br /> {zipcode} {city}
-                </p>
               </div>
+              {isAdmin && (
+                <div className='action-card-buttons'>
+                  <ContainedButton
+                    style='action-card-buttons-btn'
+                    onClick={() => editAction(action)}>
+                    <Edit />
+                    Modifier
+                  </ContainedButton>
+                  <ContainedButton
+                    preset='redButton'
+                    style='action-card-buttons-btn'
+                    onClick={() => this.openModal('confirmModalOpen')}>
+                    <Delete />
+                    Supprimer
+                  </ContainedButton>
+                </div>
+              )}
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        {isAdmin ? (
-          <UserModal close={this.closeDialog} {...this.state} {...this.props} />
-        ) : (
-          <ActionModal
-            dialogOpen={dialogOpen}
-            close={this.closeDialog}
-            action={action}
-            date={action_date}
-            start={start_time}
-            end={end_time}
-            isRegistered={isRegistered}
-            registrationId={registrationId}
-            registrationsNumber={registrationsNumber}
-            manquant={manquant}
-            handleRegister={handleRegister}
-            getActionRegistrations={this.getActionRegistrations}
-          />
-        )}
+        <UserModal close={() => this.closeModal('userModalOpen')} {...this.state} {...this.props} />
+        <ActionModal
+          actionModalOpen={actionModalOpen}
+          close={() => this.closeModal('actionModalOpen')}
+          action={action}
+          date={action_date}
+          start={start_time}
+          end={end_time}
+          isRegistered={isRegistered}
+          registrationId={registrationId}
+          registrationsNumber={registrationsNumber}
+          manquant={manquant}
+          handleRegister={handleRegister}
+          getActionRegistrations={this.getActionRegistrations}
+        />
+        <Dialog open={confirmModalOpen}>
+          <DialogContent>
+            <div className='create-action-modal-text'>
+              Êtes-vous sûr(e) de vouloir supprimer cette action ?
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.closeModal('confirmModalOpen')}>Annuler</Button>
+            <Button color='secondary' onClick={() => deleteAction(action)}>
+              Supprimer
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

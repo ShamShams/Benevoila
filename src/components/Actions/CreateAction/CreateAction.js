@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 
 import {
   FormControl,
@@ -23,15 +24,15 @@ class CreateAction extends Component {
     actionTypes: [],
     admins: [],
     actionTypeId: 2,
-    startDate: '',
-    endDate: '',
+    startDate: moment(new Date()).format('YYYY-MM-DDThh:mm'),
+    endDate: moment(new Date()).format('YYYY-MM-DDThh:mm'),
     need: 1,
-    address: '',
-    zipcode: '',
-    city: '',
-    referentId: '',
+    address: '3 rue des boulets',
+    zipcode: '94000',
+    city: 'Créteil',
+    referentId: '62',
     details: '',
-    dialog: { open: false, text: '' },
+    dialogOpen: false,
   };
 
   componentDidMount = async () => {
@@ -97,7 +98,8 @@ class CreateAction extends Component {
         console.log(error);
         this.setState({ error });
       }
-      this.setState({ dialog: { open: true, text: createdAction.data.msg } });
+      console.log(createdAction);
+      this.setState({ dialogOpen: true });
     } else {
       this.setState({
         error:
@@ -124,7 +126,7 @@ class CreateAction extends Component {
       city,
       referentId,
       details,
-      dialog,
+      dialogOpen,
     } = this.state;
 
     return (
@@ -245,9 +247,9 @@ class CreateAction extends Component {
             </ContainedButton>
           </div>
         </div>
-        <Dialog open={dialog.open}>
+        <Dialog open={dialogOpen}>
           <DialogContent>
-            <div className='create-action-modal-text'>{dialog.text}</div>
+            <div className='create-action-modal-text'>L’action a été créée avec succès.</div>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => this.props.history.push('/admin-actions')}>OK</Button>

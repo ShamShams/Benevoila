@@ -3,10 +3,10 @@ import React from 'react';
 import { Dialog, DialogContent, IconButton, List, ListItem, ListItemText } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Clear';
 
-const UserModal = ({ dialogOpen, close, registeredUsers }) => {
+const UserModal = ({ userModalOpen, close, registeredUsers }) => {
   return (
     <div className='user-modal'>
-      <Dialog open={dialogOpen} aria-labelledby='alert-dialog-title'>
+      <Dialog open={userModalOpen} aria-labelledby='alert-dialog-title'>
         <div className='user-modal-close'>
           <IconButton onClick={close}>
             <CloseIcon />

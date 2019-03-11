@@ -1,6 +1,6 @@
 .action-card {
   margin-bottom: 1.5rem;
-
+  position: relative;
   &-summary {
     width: 100%;
     margin-right: 1rem;
@@ -56,22 +56,40 @@
     justify-content: flex-end;
     align-items: flex-end;
   }
-  &-details {
-    padding-right: 2rem;
+  &-buttons {
+    margin-top: 2rem;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    h4 {
-      margin: 0;
-      margin-bottom: 6px;
-      font-size: 13px;
+    justify-content: flex-end;
+    &-btn {
+      margin-left: 2rem;
+      button {
+        font-size: 13px;
+      }
+      .MuiSvgIcon-root-87 {
+        font-size: 19px;
+        margin-right: 2px;
+        margin-bottom: 2px;
+      }
     }
-    p {
-      margin: 0;
-      color: $grey-paragraph;
-      font-size: 13.8px;
-      font-weight: 500;
-      line-height: 1.4;
+  }
+  &-details {
+    &-text {
+      padding-right: 2rem;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      h4 {
+        margin: 0;
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+      p {
+        margin: 0;
+        color: $grey-paragraph;
+        font-size: 13.8px;
+        font-weight: 500;
+        line-height: 1.4;
+      }
     }
   }
   &-description {

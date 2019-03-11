@@ -94,6 +94,21 @@ class ActionsList extends Component {
     }
   };
 
+  deleteAction = async action => {
+    const headers = { headers: { 'x-access-token': localStorage.getItem('token') } };
+    let deletedRegistration = null;
+    try {
+      deletedRegistration = await axios.delete(
+        `http://localhost:3000/actions/delete/${action.action_id}`,
+        headers
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(deletedRegistration.data.msg);
+    this.getAllActions();
+  };
+
   togglePastActions = bool => {
     this.setState({ isPastActions: bool });
   };
@@ -152,6 +167,7 @@ class ActionsList extends Component {
                   key={action.action_id}
                   action={action}
                   handleRegister={this.handleRegister}
+                  deleteAction={this.deleteAction}
                   {...this.state}
                   {...this.props}
                 />
