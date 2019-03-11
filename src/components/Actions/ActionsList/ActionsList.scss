@@ -1,7 +1,12 @@
 .action-list {
   &-header {
     display: flex;
-    justify-content: flex-end;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    &-right {
+      display: flex;
+    }
   }
   &-total {
     color: #555;

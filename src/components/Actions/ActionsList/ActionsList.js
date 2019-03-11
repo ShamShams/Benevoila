@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import ActionCard from '../ActionCard';
-import ContainedButton from '../../ContainedButton';
 import Loader from '../../Loader';
 
 import { Add } from '@material-ui/icons';
@@ -13,6 +12,7 @@ class ActionsList extends Component {
     allActions: [],
     userActions: [],
     userRegistrations: [],
+    isPastActions: false,
     isLoading: true,
     error: null,
   };
@@ -94,15 +94,23 @@ class ActionsList extends Component {
     }
   };
 
+  togglePastActions = bool => {
+    this.setState({ isPastActions: bool });
+  };
+
   render() {
-    const { allActions, userActions, isLoading, error } = this.state;
+    const { allActions, userActions, isPastActions, isLoading, error } = this.state;
     const { page } = this.props;
 
-    const actionsList = page === 'userActions' ? userActions : allActions;
     const noActionText =
       page === 'userActions'
         ? 'Vous n’êtes inscrit à aucune action'
         : 'Il n’y a aucune action proposée';
+
+    const actionsList = page === 'userActions' ? userActions : allActions;
+    const pastActions = actionsList.filter(action => new Date(action.end_date) < new Date());
+    const actionsToCome = actionsList.filter(action => new Date(action.end_date) >= new Date());
+    const actions = isPastActions ? pastActions : actionsToCome;
 
     if (isLoading) {
       return (
@@ -114,21 +122,30 @@ class ActionsList extends Component {
       return (
         <div className='action-list'>
           <div className='action-list-header'>
-            {page === 'admin' && (
-              <Button onClick={() => this.props.history.push('/admin-creer-action')}>
-                <Add />
-                Créer
+            {isPastActions ? (
+              <Button onClick={() => this.togglePastActions(false)}>
+                Voir les actions à venir
               </Button>
+            ) : (
+              <Button onClick={() => this.togglePastActions(true)}>Voir les actions passées</Button>
             )}
-            <p className='action-list-total'>
-              Total : <span>{actionsList.length}</span>
-            </p>
+            <div className='action-list-header-right'>
+              {page === 'admin' && (
+                <Button onClick={() => this.props.history.push('/admin-creer-action')}>
+                  <Add />
+                  Créer
+                </Button>
+              )}
+              <p className='action-list-total'>
+                Total : <span>{actions.length}</span>
+              </p>
+            </div>
           </div>
           {error ? <p>{error.message}</p> : null}
-          {!actionsList.length ? (
+          {!actions.length ? (
             <div className='no-action-text'>{noActionText}</div>
           ) : (
-            actionsList
+            actions
               .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
               .map(action => (
                 <ActionCard
