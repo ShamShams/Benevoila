@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 import Actions from './components/Actions';
+import CreateAction from './components/Actions/CreateAction';
 import Loader from './components/Loader';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -13,6 +14,7 @@ class Routes extends Component {
       <Router>
         <Switch>
           <AdminRoute path='/admin-actions' component={Actions} page='admin' {...this.props} />
+          <AdminRoute path='/admin-creer-action' component={CreateAction} {...this.props} />
           <AdminRoute path='/admin-benevoles' component={Users} {...this.props} />
           <PrivateRoute path='/actions' component={Actions} page='actions' {...this.props} />
           <PrivateRoute

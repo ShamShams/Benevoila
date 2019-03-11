@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import ActionCard from '../ActionCard';
+import ContainedButton from '../../ContainedButton';
 import Loader from '../../Loader';
+
+import { Add } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
 
 class ActionsList extends Component {
   state = {
@@ -106,26 +110,36 @@ class ActionsList extends Component {
           <Loader />
         </div>
       );
-    } else if (!actionsList.length) {
-      return <div className='no-action-text'>{noActionText}</div>;
     } else {
       return (
         <div className='action-list'>
-          <p className='action-list-total'>
-            Total : <span>{actionsList.length}</span>
-          </p>
+          <div className='action-list-header'>
+            {page === 'admin' && (
+              <Button onClick={() => this.props.history.push('/admin-creer-action')}>
+                <Add />
+                Créer
+              </Button>
+            )}
+            <p className='action-list-total'>
+              Total : <span>{actionsList.length}</span>
+            </p>
+          </div>
           {error ? <p>{error.message}</p> : null}
-          {actionsList
-            .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
-            .map(action => (
-              <ActionCard
-                key={action.action_id}
-                action={action}
-                handleRegister={this.handleRegister}
-                {...this.state}
-                {...this.props}
-              />
-            ))}
+          {!actionsList.length ? (
+            <div className='no-action-text'>{noActionText}</div>
+          ) : (
+            actionsList
+              .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
+              .map(action => (
+                <ActionCard
+                  key={action.action_id}
+                  action={action}
+                  handleRegister={this.handleRegister}
+                  {...this.state}
+                  {...this.props}
+                />
+              ))
+          )}
         </div>
       );
     }

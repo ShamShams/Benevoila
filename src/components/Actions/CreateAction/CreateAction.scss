@@ -1,0 +1,50 @@
+.create-action {
+  min-height: 100%;
+  padding: 2rem 5rem;
+  margin-left: 16rem;
+  &-form {
+    margin-top: 2.5rem;
+    &-row {
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 2rem;
+    }
+    &-action-types,
+    &-referent {
+      width: 15rem;
+    }
+    &-need {
+      width: 4rem;
+    }
+    &-address {
+      width: 25rem;
+    }
+    &-zipcode {
+      width: 9rem;
+    }
+    &-city {
+      width: 15rem;
+    }
+    &-details {
+      width: 37rem;
+    }
+  }
+  &-error {
+    min-height: 15px;
+    color: red;
+    font-size: 14px;
+    text-align: center;
+  }
+  &-buttons {
+    width: 70%;
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  &-modal-text {
+    margin: 2rem 1rem 1rem 1rem;
+    font-weight: 500;
+    font-size: 18px;
+  }
+}
