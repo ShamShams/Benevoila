@@ -145,6 +145,8 @@ class ActionCard extends Component {
     const registrationId = registration && registration.registration_id;
     const isRegistered = registrationId !== undefined;
 
+    const isPastAction = new Date(end_date) < new Date();
+
     const isAdmin = user.role === 'admin';
 
     const button = isAdmin ? (
@@ -153,7 +155,7 @@ class ActionCard extends Component {
           Voir les inscrits
         </ContainedButton>
       ) : null
-    ) : isRegistered ? (
+    ) : isPastAction ? null : isRegistered ? (
       <ContainedButton preset='redButton' onClick={() => this.openModal('actionModalOpen')}>
         Je me désinscris
       </ContainedButton>

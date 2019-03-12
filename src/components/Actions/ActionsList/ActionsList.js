@@ -119,7 +119,7 @@ class ActionsList extends Component {
 
     const noActionText =
       page === 'userActions'
-        ? 'Vous n’êtes inscrit à aucune action'
+        ? 'Vous n’êtes inscrit(e) à aucune action'
         : 'Il n’y a aucune action proposée';
 
     const actionsList = page === 'userActions' ? userActions : allActions;
@@ -136,13 +136,15 @@ class ActionsList extends Component {
     } else {
       return (
         <div className='action-list'>
-          <div className='action-list-header'>
-            {isPastActions ? (
+          <div className={`action-list-header ${page === 'actions' && 'flex-end'}`}>
+            {page === 'actions' ? null : isPastActions ? (
               <Button onClick={() => this.togglePastActions(false)}>
-                Voir les actions à venir
+                {page === 'userActions' ? 'Voir mes actions à venir' : 'Voir les actions à venir'}
               </Button>
             ) : (
-              <Button onClick={() => this.togglePastActions(true)}>Voir les actions passées</Button>
+              <Button onClick={() => this.togglePastActions(true)}>
+                {page === 'userActions' ? 'Voir mes actions passées' : 'Voir les actions passées'}
+              </Button>
             )}
             <div className='action-list-header-right'>
               {page === 'admin' && (
