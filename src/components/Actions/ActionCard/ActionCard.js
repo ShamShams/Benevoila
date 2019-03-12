@@ -36,7 +36,7 @@ class ActionCard extends Component {
     actionModalOpen: false,
     userModalOpen: false,
     confirmModalOpen: false,
-    expansionPanelOpen: true,
+    expansionPanelOpen: false,
     actionRegistrations: [],
     registeredUsers: [],
     referent: {},
