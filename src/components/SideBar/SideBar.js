@@ -5,8 +5,6 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Drawer, Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import logoAcdlp from '../../assets/images/logo-acdlp.png';
-
 const styles = () => ({
   drawer: { width: '16rem' },
 });
@@ -23,7 +21,7 @@ const SideBar = ({ classes, user, authenticate }) => {
         <div className='benevoila'>Bénévoilà</div>
         <div className='logo'>
           <NavLink to={`/actions`} className='link' exact>
-            <img src={logoAcdlp} alt='Logo Au coeur de la précarité' />
+            <img src='/src/assets/images/logo-acdlp.png' alt='Logo Au coeur de la précarité' />
           </NavLink>
         </div>
         <Divider />
