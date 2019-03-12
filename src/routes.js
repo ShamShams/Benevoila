@@ -10,20 +10,62 @@ import Register from './components/Register';
 import Users from './components/Users';
 
 class Routes extends Component {
+  state = {
+    mobileOpen: false,
+  };
+
+  toggleSideBar = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+
   render() {
     return (
       <Router>
         <Switch>
-          <AdminRoute path='/admin-actions' component={Actions} page='admin' {...this.props} />
-          <AdminRoute path='/admin-creer-action' component={CreateAction} {...this.props} />
-          <AdminRoute path='/admin-modifier-action' component={EditAction} {...this.props} />
-          <AdminRoute path='/admin-benevoles' component={Users} {...this.props} />
-          <PrivateRoute path='/actions' component={Actions} page='actions' {...this.props} />
+          <AdminRoute
+            path='/admin-actions'
+            component={Actions}
+            page='admin'
+            toggleSideBar={this.toggleSideBar}
+            {...this.props}
+            {...this.state}
+          />
+          <AdminRoute
+            path='/admin-creer-action'
+            component={CreateAction}
+            toggleSideBar={this.toggleSideBar}
+            {...this.props}
+            {...this.state}
+          />
+          <AdminRoute
+            path='/admin-modifier-action'
+            component={EditAction}
+            toggleSideBar={this.toggleSideBar}
+            {...this.props}
+            {...this.state}
+          />
+          <AdminRoute
+            path='/admin-benevoles'
+            component={Users}
+            toggleSideBar={this.toggleSideBar}
+            {...this.props}
+            {...this.state}
+          />
+          <PrivateRoute
+            path='/actions'
+            component={Actions}
+            page='actions'
+            toggleSideBar={this.toggleSideBar}
+            {...this.props}
+            {...this.state}
+          />
           <PrivateRoute
             path='/mes-actions'
             component={Actions}
             page='userActions'
+            toggleSideBar={this.toggleSideBar}
             {...this.props}
+            {...this.state}
           />
           <PublicRoute path='/inscription' component={Register} {...this.props} />
           <PublicRoute path='/connexion' component={Login} {...this.props} />
@@ -34,13 +76,29 @@ class Routes extends Component {
   }
 }
 
-function PrivateRoute({ component: Component, user, authenticate, page }) {
+function PrivateRoute({
+  component: Component,
+  user,
+  authenticate,
+  page,
+  mobileOpen,
+  toggleSideBar,
+}) {
   return (
     <Route
       render={props => {
         if (user) {
           if (user.role === 'bénévole') {
-            return <Component authenticate={authenticate} user={user} page={page} {...props} />;
+            return (
+              <Component
+                authenticate={authenticate}
+                user={user}
+                page={page}
+                mobileOpen={mobileOpen}
+                toggleSideBar={toggleSideBar}
+                {...props}
+              />
+            );
           } else {
             return <Redirect to='/admin-actions' />;
           }
@@ -54,13 +112,22 @@ function PrivateRoute({ component: Component, user, authenticate, page }) {
   );
 }
 
-function AdminRoute({ component: Component, user, authenticate, page }) {
+function AdminRoute({ component: Component, user, authenticate, page, mobileOpen, toggleSideBar }) {
   return (
     <Route
       render={props => {
         if (user) {
           if (user.role === 'admin') {
-            return <Component authenticate={authenticate} user={user} page={page} {...props} />;
+            return (
+              <Component
+                authenticate={authenticate}
+                user={user}
+                page={page}
+                mobileOpen={mobileOpen}
+                toggleSideBar={toggleSideBar}
+                {...props}
+              />
+            );
           } else {
             return <Redirect to='/actions' />;
           }

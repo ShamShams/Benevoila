@@ -1,5 +1,8 @@
 .users-list {
   margin: auto 7rem;
+  @media screen and (max-width: $sm) {
+    margin: auto;
+  }
   &-total {
     margin-top: 0;
     margin-right: 0.5rem;

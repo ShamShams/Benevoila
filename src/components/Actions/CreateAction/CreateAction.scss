@@ -48,3 +48,24 @@
     font-size: 18px;
   }
 }
+
+@media screen and (max-width: $sm) {
+  .create-action {
+    margin-left: 0;
+    padding-top: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    &-form-row {
+      margin-bottom: 0;
+      flex-direction: column;
+      & > div {
+        margin-bottom: 0.5rem;
+      }
+    }
+    &-buttons {
+      width: 100%;
+      margin: 0;
+      justify-content: space-between;
+    }
+  }
+}

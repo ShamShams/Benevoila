@@ -102,3 +102,33 @@
     }
   }
 }
+
+@media screen and (max-width: $sm) {
+  .action-card {
+    &-summary {
+      flex-flow: column nowrap;
+      align-items: flex-start;
+    }
+    &-vlt-infos {
+      p {
+        margin-top: 10px;
+      }
+    }
+    &-button {
+      margin-top: 20px;
+      align-self: flex-end;
+    }
+    &-buttons {
+      justify-content: space-between;
+      &-btn {
+        margin-left: 0;
+      }
+    }
+    &-details-text {
+      flex-flow: column nowrap;
+      p {
+        margin-bottom: 0.7rem;
+      }
+    }
+  }
+}

@@ -2,20 +2,32 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   TextField,
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
 } from '@material-ui/core';
+import { Menu } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
 import ContainedButton from '../../ContainedButton';
 import Header from '../../Header';
 import SideBar from '../../SideBar';
+
+const styles = theme => ({
+  menuButton: {
+    marginRight: 20,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+});
 
 class CreateAction extends Component {
   state = {
@@ -127,11 +139,19 @@ class CreateAction extends Component {
       details,
       dialogOpen,
     } = this.state;
+    const { toggleSideBar, classes } = this.props;
 
     return (
       <div>
         <SideBar {...this.props} />
         <div className='create-action'>
+          <IconButton
+            color='inherit'
+            aria-label='Open drawer'
+            onClick={toggleSideBar}
+            className={classes.menuButton}>
+            <Menu />
+          </IconButton>
           <Header title='Créer une action' />
           <form className='create-action-form' autoComplete='off'>
             <div className='create-action-form-row'>
@@ -259,4 +279,4 @@ class CreateAction extends Component {
   }
 }
 
-export default CreateAction;
+export default withStyles(styles, { withTheme: true })(CreateAction);

@@ -1,22 +1,31 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { Drawer, Divider } from '@material-ui/core';
+import { Drawer, Divider, Hidden } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = () => ({
-  drawer: { width: '16rem' },
+const drawerWidth = '16rem';
+
+const styles = theme => ({
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
 });
 
-const SideBar = ({ classes, user, authenticate }) => {
-  const logOut = () => {
+class SideBar extends Component {
+  logOut = () => {
     localStorage.removeItem('token');
-    authenticate();
+    this.props.authenticate();
   };
 
-  return (
-    <Drawer variant='permanent' classes={{ paper: classes.drawer }}>
+  render() {
+    const { classes, theme, mobileOpen, toggleSideBar, user } = this.props;
+
+    const drawer = (
       <div className='sidebar'>
         <div className='benevoila'>Bénévoilà</div>
         <div className='logo'>
@@ -62,14 +71,39 @@ const SideBar = ({ classes, user, authenticate }) => {
           )}
           <Divider />
           <div className='deconnexion'>
-            <span className='link' onClick={logOut}>
+            <span className='link' onClick={this.logOut}>
               Déconnexion
             </span>
           </div>
         </nav>
       </div>
-    </Drawer>
-  );
-};
+    );
 
-export default withRouter(withStyles(styles)(SideBar));
+    return (
+      <Fragment>
+        <Hidden smUp implementation='css'>
+          <Drawer
+            variant='temporary'
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={toggleSideBar}
+            classes={{ paper: classes.drawer }}>
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation='css'>
+          <Drawer
+            classes={{
+              paper: classes.drawer,
+            }}
+            variant='permanent'
+            open>
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </Fragment>
+    );
+  }
+}
+
+export default withRouter(withStyles(styles, { withTheme: true })(SideBar));

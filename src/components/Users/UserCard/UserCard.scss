@@ -42,3 +42,25 @@
     }
   }
 }
+
+@media screen and (max-width: $sm) {
+  .user-card {
+    &-info {
+      flex-direction: column;
+    }
+    &-role {
+      margin-top: 2px;
+    }
+    &-registrations {
+      margin-right: 0;
+      margin-top: 0.5rem;
+    }
+    &-details {
+      flex-direction: column;
+      &-item {
+        margin-right: 0rem;
+        margin-bottom: 0.2rem;
+      }
+    }
+  }
+}

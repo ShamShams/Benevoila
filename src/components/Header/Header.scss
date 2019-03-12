@@ -9,3 +9,11 @@
     text-align: center;
   }
 }
+@media screen and (max-width: $sm) {
+  .header {
+    padding-bottom: 0;
+    &-title {
+      font-size: 25px;
+    }
+  }
+}
