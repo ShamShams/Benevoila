@@ -36,7 +36,7 @@ class ActionCard extends Component {
     actionModalOpen: false,
     userModalOpen: false,
     confirmModalOpen: false,
-    expansionPanelOpen: false,
+    expansionPanelOpen: true,
     actionRegistrations: [],
     registeredUsers: [],
     referent: {},
@@ -122,7 +122,17 @@ class ActionCard extends Component {
       actionRegistrations,
       referent,
     } = this.state;
-    const { name, description, start_date, end_date, address, zipcode, city, need } = action;
+    const {
+      name,
+      description,
+      start_date,
+      end_date,
+      address,
+      zipcode,
+      city,
+      need,
+      details,
+    } = action;
 
     const action_date = moment(start_date).format('dddd DD MMMM YYYY');
     const start_time = moment(start_date).format('HH:mm');
@@ -196,10 +206,15 @@ class ActionCard extends Component {
                 <div className='action-card-description'>
                   <h4>Description</h4>
                   <p>{description}</p>
+                  {details && (
+                    <p className='action-card-description-details'>
+                      <span>Note : </span> {details}
+                    </p>
+                  )}
                 </div>
                 {referent && (
                   <div>
-                    <h4>Référent</h4>
+                    <h4>Référent(e)</h4>
                     <p>
                       {referent.firstname} {referent.lastname} <br /> {referent.phone} <br />{' '}
                       {referent.email}
