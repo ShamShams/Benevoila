@@ -17,7 +17,7 @@ const ActionModal = ({
   getActionRegistrations,
   close,
 }) => {
-  const { name, description, address, zipcode, city } = action;
+  const { name, description, address, zipcode, city, details } = action;
 
   const register = async () => {
     await handleRegister(action, isRegistered, registrationId);
@@ -59,6 +59,11 @@ const ActionModal = ({
             <div>
               <h4>Description</h4>
               <p>{description}</p>
+              {details && (
+                <p className='action-card-description-details'>
+                  <span>Note : </span> {details}
+                </p>
+              )}
             </div>
           </div>
           <br />
