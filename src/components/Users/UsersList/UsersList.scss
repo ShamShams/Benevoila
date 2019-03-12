@@ -1,6 +1,6 @@
 .users-list {
   margin: auto 7rem;
-  @media screen and (max-width: $sm) {
+  @media screen and (max-width: $md) {
     margin: auto;
   }
   &-total {

@@ -3,16 +3,18 @@ import axios from 'axios';
 import moment from 'moment';
 
 import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   TextField,
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
 } from '@material-ui/core';
+import { Menu } from '@material-ui/icons';
 
 import ContainedButton from '../../ContainedButton';
 import Header from '../../Header';
@@ -143,11 +145,19 @@ class EditAction extends Component {
       details,
       dialogOpen,
     } = this.state;
+    const { toggleSideBar } = this.props;
 
     return (
       <div>
         <SideBar {...this.props} />
         <div className='create-action'>
+          <IconButton
+            color='inherit'
+            aria-label='Open drawer'
+            onClick={toggleSideBar}
+            className='icon-button'>
+            <Menu />
+          </IconButton>
           <Header title='Modifier une action' />
           <form className='create-action-form' autoComplete='off'>
             <div className='create-action-form-row'>

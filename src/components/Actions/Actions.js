@@ -6,7 +6,6 @@ import SideBar from '../SideBar';
 
 import { IconButton } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
 
 const titles = {
   actions: 'Toutes les actions',
@@ -14,18 +13,9 @@ const titles = {
   admin: 'Les actions',
 };
 
-const styles = theme => ({
-  menuButton: {
-    marginRight: 20,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-});
-
 const Actions = props => {
   const title = titles[props.page];
-  const { toggleSideBar, classes } = props;
+  const { toggleSideBar } = props;
 
   return (
     <div>
@@ -35,7 +25,7 @@ const Actions = props => {
           color='inherit'
           aria-label='Open drawer'
           onClick={toggleSideBar}
-          className={classes.menuButton}>
+          className='icon-button'>
           <Menu />
         </IconButton>
         <Header title={title} />
@@ -45,4 +35,4 @@ const Actions = props => {
   );
 };
 
-export default withStyles(styles, { withTheme: true })(Actions);
+export default Actions;

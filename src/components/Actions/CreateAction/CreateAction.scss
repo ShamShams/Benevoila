@@ -49,17 +49,38 @@
   }
 }
 
-@media screen and (max-width: $sm) {
+@media screen and (max-width: $md) {
   .create-action {
     margin-left: 0;
     padding-top: 1rem;
     padding-left: 10px;
     padding-right: 10px;
-    &-form-row {
-      margin-bottom: 0;
-      flex-direction: column;
-      & > div {
-        margin-bottom: 0.5rem;
+    &-form {
+      &-row {
+        margin-bottom: 0;
+        flex-direction: column;
+        & > div {
+          margin-bottom: 0.5rem;
+        }
+      }
+      &-action-types,
+      &-referent {
+        width: 15rem;
+      }
+      &-need {
+        width: 4rem;
+      }
+      &-address {
+        width: 18rem;
+      }
+      &-zipcode {
+        width: 9rem;
+      }
+      &-city {
+        width: 9rem;
+      }
+      &-details {
+        width: 18rem;
       }
     }
     &-buttons {

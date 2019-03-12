@@ -14,3 +14,9 @@ body {
 .capitalize {
   text-transform: capitalize;
 }
+
+@media screen and (min-width: $md) {
+  .icon-button {
+    display: none !important;
+  }
+}

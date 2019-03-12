@@ -6,19 +6,9 @@ import UsersList from './UsersList';
 
 import { IconButton } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-  menuButton: {
-    marginRight: 20,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-});
 
 const Users = props => {
-  const { toggleSideBar, classes } = props;
+  const { toggleSideBar } = props;
 
   return (
     <div>
@@ -28,7 +18,7 @@ const Users = props => {
           color='inherit'
           aria-label='Open drawer'
           onClick={toggleSideBar}
-          className={classes.menuButton}>
+          className='icon-button'>
           <Menu />
         </IconButton>
         <Header title='Les bénévoles' />
@@ -38,4 +28,4 @@ const Users = props => {
   );
 };
 
-export default withStyles(styles, { withTheme: true })(Users);
+export default Users;

@@ -14,20 +14,10 @@ import {
   TextField,
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
 
 import ContainedButton from '../../ContainedButton';
 import Header from '../../Header';
 import SideBar from '../../SideBar';
-
-const styles = theme => ({
-  menuButton: {
-    marginRight: 20,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-});
 
 class CreateAction extends Component {
   state = {
@@ -139,7 +129,7 @@ class CreateAction extends Component {
       details,
       dialogOpen,
     } = this.state;
-    const { toggleSideBar, classes } = this.props;
+    const { toggleSideBar } = this.props;
 
     return (
       <div>
@@ -149,7 +139,7 @@ class CreateAction extends Component {
             color='inherit'
             aria-label='Open drawer'
             onClick={toggleSideBar}
-            className={classes.menuButton}>
+            className='icon-button'>
             <Menu />
           </IconButton>
           <Header title='Créer une action' />
@@ -279,4 +269,4 @@ class CreateAction extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(CreateAction);
+export default CreateAction;
