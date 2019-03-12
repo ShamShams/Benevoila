@@ -18,26 +18,40 @@ import ContainedButton from '../../ContainedButton';
 import Header from '../../Header';
 import SideBar from '../../SideBar';
 
-class CreateAction extends Component {
+class EditAction extends Component {
   state = {
     error: '',
     actionTypes: [],
     admins: [],
-    actionTypeId: 2,
-    startDate: moment(new Date()).format('YYYY-MM-DDThh:mm'),
-    endDate: moment(new Date()).format('YYYY-MM-DDThh:mm'),
-    need: 1,
-    address: '3 rue des boulets',
-    zipcode: '94000',
-    city: 'Créteil',
-    referentId: '62',
+    actionTypeId: '',
+    startDate: '',
+    endDate: '',
+    need: '',
+    address: '',
+    zipcode: '',
+    city: '',
+    referentId: '',
     details: '',
     dialogOpen: false,
   };
 
   componentDidMount = async () => {
+    const { action } = this.props.location.state;
+
     await this.getAllActionTypes();
     await this.getAllAdmin();
+
+    this.setState({
+      actionTypeId: action.action_type_id,
+      startDate: moment(action.start_date).format('YYYY-MM-DDThh:mm'),
+      endDate: moment(action.end_date).format('YYYY-MM-DDThh:mm'),
+      need: action.need,
+      address: action.address,
+      zipcode: action.zipcode,
+      city: action.city,
+      referentId: action.referent_id,
+      details: action.details,
+    });
   };
 
   getAllActionTypes = async () => {
@@ -64,7 +78,7 @@ class CreateAction extends Component {
     this.setState({ admins: admins.data });
   };
 
-  createAction = async () => {
+  editAction = async () => {
     const {
       actionTypeId,
       startDate,
@@ -89,21 +103,22 @@ class CreateAction extends Component {
     };
     const token = localStorage.getItem('token');
     const config = { headers: { 'x-access-token': token } };
+    const { action_id } = this.props.location.state.action;
     const inputsToVerify = [startDate, endDate, need, address, zipcode, city];
     if (inputsToVerify.every(input => input !== '')) {
-      let createdAction = null;
+      let editedAction = null;
       try {
-        createdAction = await axios.post('http://localhost:3000/actions/create', body, config);
+        editedAction = await axios.put(`http://localhost:3000/actions/${action_id}`, body, config);
       } catch (error) {
         console.log(error);
         this.setState({ error });
       }
-      console.log(createdAction.data.msg);
+      console.log(editedAction.data.msg);
       this.setState({ dialogOpen: true });
     } else {
       this.setState({
         error:
-          'Il manque des informations pour créer l’action. Veuillez remplir les champs manquants.',
+          'Il manque des informations pour modifier l’action. Veuillez remplir les champs manquants.',
       });
     }
   };
@@ -133,7 +148,7 @@ class CreateAction extends Component {
       <div>
         <SideBar {...this.props} />
         <div className='create-action'>
-          <Header title='Créer une action' />
+          <Header title='Modifier une action' />
           <form className='create-action-form' autoComplete='off'>
             <div className='create-action-form-row'>
               <FormControl>
@@ -240,16 +255,16 @@ class CreateAction extends Component {
           <p className='create-action-error'>{error ? error : ''}</p>
           <div className='create-action-buttons'>
             <ContainedButton onClick={() => this.props.history.push('admin-actions')}>
-              Retour aux actions
+              Annuler
             </ContainedButton>
-            <ContainedButton preset='blueButton' onClick={this.createAction}>
-              Créer l'action
+            <ContainedButton preset='blueButton' onClick={this.editAction}>
+              Modifier l'action
             </ContainedButton>
           </div>
         </div>
         <Dialog open={dialogOpen}>
           <DialogContent>
-            <div className='create-action-modal-text'>L’action a été créée avec succès.</div>
+            <div className='create-action-modal-text'>L’action a été modifiée avec succès.</div>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => this.props.history.push('/admin-actions')}>OK</Button>
@@ -260,4 +275,4 @@ class CreateAction extends Component {
   }
 }
 
-export default CreateAction;
+export default EditAction;

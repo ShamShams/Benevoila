@@ -97,6 +97,14 @@ class ActionCard extends Component {
     this.setState({ referent: referent.data });
   };
 
+  editAction = () => {
+    const { action, history } = this.props;
+    history.push({
+      pathname: '/admin-modifier-action',
+      state: { action },
+    });
+  };
+
   openModal = name => {
     this.setState({ [name]: true });
   };
@@ -106,15 +114,7 @@ class ActionCard extends Component {
   };
 
   render() {
-    const {
-      classes,
-      action,
-      user,
-      userRegistrations,
-      handleRegister,
-      deleteAction,
-      editAction,
-    } = this.props;
+    const { classes, action, user, userRegistrations, handleRegister, deleteAction } = this.props;
     const {
       actionModalOpen,
       confirmModalOpen,
@@ -215,9 +215,7 @@ class ActionCard extends Component {
               </div>
               {isAdmin && (
                 <div className='action-card-buttons'>
-                  <ContainedButton
-                    style='action-card-buttons-btn'
-                    onClick={() => editAction(action)}>
+                  <ContainedButton style='action-card-buttons-btn' onClick={this.editAction}>
                     <Edit />
                     Modifier
                   </ContainedButton>

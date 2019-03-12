@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 
 import Actions from './components/Actions';
 import CreateAction from './components/Actions/CreateAction';
+import EditAction from './components/Actions/EditAction';
 import Loader from './components/Loader';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -15,6 +16,7 @@ class Routes extends Component {
         <Switch>
           <AdminRoute path='/admin-actions' component={Actions} page='admin' {...this.props} />
           <AdminRoute path='/admin-creer-action' component={CreateAction} {...this.props} />
+          <AdminRoute path='/admin-modifier-action' component={EditAction} {...this.props} />
           <AdminRoute path='/admin-benevoles' component={Users} {...this.props} />
           <PrivateRoute path='/actions' component={Actions} page='actions' {...this.props} />
           <PrivateRoute
