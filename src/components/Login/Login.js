@@ -75,6 +75,10 @@ class Login extends Component {
   render() {
     return (
       <div className='login'>
+        <img className='login-logo' src='/src/assets/images/logo-blanc.png' />
+        <div className='login-benevoila'>
+          créé par <span>Bénévoilà</span>
+        </div>
         <form className='login-form'>
           <h1 className='login-form-title'>Connexion</h1>
           {inputs.map(this.renderInputs)}

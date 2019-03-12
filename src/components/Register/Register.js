@@ -125,6 +125,10 @@ class Register extends Component {
   render() {
     return (
       <div className='register'>
+        <img className='register-logo' src='/src/assets/images/logo-blanc.png' />
+        <div className='register-benevoila'>
+          créé par <span>Bénévoilà</span>
+        </div>
         <form className='register-form'>
           <h1 className='register-form-title'>Inscription</h1>
           {this.state.registered ? (
