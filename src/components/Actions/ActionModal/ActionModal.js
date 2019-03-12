@@ -4,7 +4,7 @@ import { Button, Dialog, DialogContent } from '@material-ui/core';
 import ContainedButton from '../../ContainedButton';
 
 const ActionModal = ({
-  dialogOpen,
+  actionModalOpen,
   action,
   date,
   start,
@@ -17,7 +17,7 @@ const ActionModal = ({
   getActionRegistrations,
   close,
 }) => {
-  const { name, description, address, zipcode, city } = action;
+  const { name, description, address, zipcode, city, details } = action;
 
   const register = async () => {
     await handleRegister(action, isRegistered, registrationId);
@@ -27,7 +27,7 @@ const ActionModal = ({
 
   return (
     <div>
-      <Dialog open={dialogOpen} aria-labelledby='alert-dialog-title'>
+      <Dialog open={actionModalOpen} aria-labelledby='alert-dialog-title'>
         <DialogContent>
           <div className='action-modal-header'>
             {isRegistered ? (
@@ -37,7 +37,7 @@ const ActionModal = ({
             )}
           </div>
           <p className='action-modal-title'>{name}</p>
-          <div className='action-card-details'>
+          <div className='action-modal-details'>
             <div>
               <h4>Date</h4>
               <p className='capitalize'>{date}</p>
@@ -55,14 +55,19 @@ const ActionModal = ({
               </p>
             </div>
           </div>
-          <div className='action-card-details'>
+          <div className='action-modal-details'>
             <div>
               <h4>Description</h4>
               <p>{description}</p>
+              {details && (
+                <p className='action-card-description-details'>
+                  <span>Note : </span> {details}
+                </p>
+              )}
             </div>
           </div>
           <br />
-          <div className='action-card-details'>
+          <div className='action-modal-details'>
             <div>
               <h4>Nombre de bénévoles</h4>
               <div className='action-modal-vlt-infos'>

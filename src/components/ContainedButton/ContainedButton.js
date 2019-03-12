@@ -24,11 +24,19 @@ const styles = () => ({
       backgroundColor: '#EF9A9A',
     },
   },
+  addButton: {
+    color: '#444',
+    backgroundColor: '#ddd',
+    fontSize: '14px',
+  },
 });
 
 const ContainedButton = ({ children, preset, classes, style, onClick }) => (
   <div className={style}>
-    <Button variant='contained' onClick={onClick} className={classNames(classes.customizeButton, classes[preset])}>
+    <Button
+      variant='contained'
+      onClick={onClick}
+      className={classNames(classes.customizeButton, classes[preset])}>
       {children}
     </Button>
   </div>

@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import ActionCard from '../ActionCard';
-// import FullTabs from '../FullTabs';
 import Loader from '../../Loader';
+
+import { Add } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
 
 class ActionsList extends Component {
   state = {
     allActions: [],
     userActions: [],
     userRegistrations: [],
+    isPastActions: false,
     isLoading: true,
     error: null,
   };
@@ -91,15 +94,38 @@ class ActionsList extends Component {
     }
   };
 
-  render() {
-    const { allActions, userActions, isLoading, error } = this.state;
-    const { user, page } = this.props;
+  deleteAction = async action => {
+    const headers = { headers: { 'x-access-token': localStorage.getItem('token') } };
+    let deletedRegistration = null;
+    try {
+      deletedRegistration = await axios.delete(
+        `http://localhost:3000/actions/delete/${action.action_id}`,
+        headers
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(deletedRegistration.data.msg);
+    this.getAllActions();
+  };
 
-    const actionsList = page === 'mes-actions' ? userActions : allActions;
+  togglePastActions = bool => {
+    this.setState({ isPastActions: bool });
+  };
+
+  render() {
+    const { allActions, userActions, isPastActions, isLoading, error } = this.state;
+    const { page } = this.props;
+
     const noActionText =
-      page === 'mes-actions'
-        ? 'Vous n’êtes inscrit à aucune action'
+      page === 'userActions'
+        ? 'Vous n’êtes inscrit(e) à aucune action'
         : 'Il n’y a aucune action proposée';
+
+    const actionsList = page === 'userActions' ? userActions : allActions;
+    const pastActions = actionsList.filter(action => new Date(action.end_date) < new Date());
+    const actionsToCome = actionsList.filter(action => new Date(action.end_date) >= new Date());
+    const actions = isPastActions ? pastActions : actionsToCome;
 
     if (isLoading) {
       return (
@@ -107,25 +133,48 @@ class ActionsList extends Component {
           <Loader />
         </div>
       );
-    } else if (!actionsList.length) {
-      return <div className='no-action-text'>{noActionText}</div>;
     } else {
       return (
         <div className='action-list'>
+          <div className={`action-list-header ${page === 'actions' && 'flex-end'}`}>
+            {page === 'actions' ? null : isPastActions ? (
+              <Button onClick={() => this.togglePastActions(false)}>
+                {page === 'userActions' ? 'Voir mes actions à venir' : 'Voir les actions à venir'}
+              </Button>
+            ) : (
+              <Button onClick={() => this.togglePastActions(true)}>
+                {page === 'userActions' ? 'Voir mes actions passées' : 'Voir les actions passées'}
+              </Button>
+            )}
+            <div className='action-list-header-right'>
+              {page === 'admin' && (
+                <Button onClick={() => this.props.history.push('/admin-creer-action')}>
+                  <Add />
+                  Créer
+                </Button>
+              )}
+              <p className='action-list-total'>
+                Total : <span>{actions.length}</span>
+              </p>
+            </div>
+          </div>
           {error ? <p>{error.message}</p> : null}
-          {actionsList
-            .sort((a, b) => {
-              return new Date(a.start_date) - new Date(b.start_date);
-            })
-            .map(action => (
-              <ActionCard
-                key={action.action_id}
-                action={action}
-                user={user}
-                handleRegister={this.handleRegister}
-                {...this.state}
-              />
-            ))}
+          {!actions.length ? (
+            <div className='no-action-text'>{noActionText}</div>
+          ) : (
+            actions
+              .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
+              .map(action => (
+                <ActionCard
+                  key={action.action_id}
+                  action={action}
+                  handleRegister={this.handleRegister}
+                  deleteAction={this.deleteAction}
+                  {...this.state}
+                  {...this.props}
+                />
+              ))
+          )}
         </div>
       );
     }

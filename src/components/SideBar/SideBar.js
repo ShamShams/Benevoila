@@ -1,29 +1,36 @@
-import React from 'react';
+import React, { Fragment, Component } from 'react';
 
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { Drawer, Divider } from '@material-ui/core';
+import { Drawer, Divider, Hidden } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import logoAcdlp from '../../assets/images/logo-acdlp.png';
+const drawerWidth = '16rem';
 
-const styles = () => ({
-  drawer: { width: '16rem' },
+const styles = theme => ({
+  drawer: {
+    [theme.breakpoints.up('md')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
 });
 
-const SideBar = ({ classes, user, authenticate }) => {
-  const logOut = () => {
+class SideBar extends Component {
+  logOut = () => {
     localStorage.removeItem('token');
-    authenticate();
+    this.props.authenticate();
   };
 
-  return (
-    <Drawer variant='permanent' classes={{ paper: classes.drawer }}>
+  render() {
+    const { classes, theme, mobileOpen, toggleSideBar, user } = this.props;
+
+    const drawer = (
       <div className='sidebar'>
         <div className='benevoila'>Bénévoilà</div>
         <div className='logo'>
           <NavLink to={`/actions`} className='link' exact>
-            <img src={logoAcdlp} alt='Logo Au coeur de la précarité' />
+            <img src='/src/assets/images/logo-acdlp.png' alt='Logo Au coeur de la précarité' />
           </NavLink>
         </div>
         <Divider />
@@ -35,31 +42,68 @@ const SideBar = ({ classes, user, authenticate }) => {
         </div>
         <Divider />
         <nav className='navlinks'>
-          <li>
-            <NavLink to={`/actions`} className='link' exact>
-              Toutes les actions
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={`/mes-actions`} className='link'>
-              Mes actions
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={`/profil`} className='link'>
-              Mon profil
-            </NavLink>
-          </li>
+          {user.role === 'admin' ? (
+            <Fragment>
+              <li>
+                <NavLink to={`/admin-actions`} className='link' exact>
+                  Les actions
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/admin-benevoles`} className='link'>
+                  Les bénévoles
+                </NavLink>
+              </li>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <li>
+                <NavLink to={`/actions`} className='link' exact>
+                  Toutes les actions
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/mes-actions`} className='link'>
+                  Mes actions
+                </NavLink>
+              </li>
+            </Fragment>
+          )}
           <Divider />
           <div className='deconnexion'>
-            <span className='link' onClick={logOut}>
+            <span className='link' onClick={this.logOut}>
               Déconnexion
             </span>
           </div>
         </nav>
       </div>
-    </Drawer>
-  );
-};
+    );
 
-export default withRouter(withStyles(styles)(SideBar));
+    return (
+      <Fragment>
+        <Hidden mdUp implementation='css'>
+          <Drawer
+            variant='temporary'
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={toggleSideBar}
+            classes={{ paper: classes.drawer }}>
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden smDown implementation='css'>
+          <Drawer
+            classes={{
+              paper: classes.drawer,
+            }}
+            variant='permanent'
+            open>
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </Fragment>
+    );
+  }
+}
+
+export default withRouter(withStyles(styles, { withTheme: true })(SideBar));
