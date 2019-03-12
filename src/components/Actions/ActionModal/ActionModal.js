@@ -37,7 +37,7 @@ const ActionModal = ({
             )}
           </div>
           <p className='action-modal-title'>{name}</p>
-          <div className='action-card-details'>
+          <div className='action-modal-details'>
             <div>
               <h4>Date</h4>
               <p className='capitalize'>{date}</p>
@@ -55,14 +55,14 @@ const ActionModal = ({
               </p>
             </div>
           </div>
-          <div className='action-card-details'>
+          <div className='action-modal-details'>
             <div>
               <h4>Description</h4>
               <p>{description}</p>
             </div>
           </div>
           <br />
-          <div className='action-card-details'>
+          <div className='action-modal-details'>
             <div>
               <h4>Nombre de bénévoles</h4>
               <div className='action-modal-vlt-infos'>
