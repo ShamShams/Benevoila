@@ -159,7 +159,7 @@ class ActionCard extends Component {
       <ContainedButton preset='redButton' onClick={() => this.openModal('actionModalOpen')}>
         Je me désinscris
       </ContainedButton>
-    ) : (
+    ) : manquant === 0 ? null : (
       <ContainedButton preset='blueButton' onClick={() => this.openModal('actionModalOpen')}>
         Je m'inscris
       </ContainedButton>
