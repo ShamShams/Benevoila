@@ -1,0 +1,92 @@
+.login,
+.register {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/src/assets/images/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  &-logo {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.8rem;
+    width: 5rem;
+  }
+  &-benevoila {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.8rem;
+    opacity: 0.9;
+    color: #fff;
+    font-weight: 500;
+    span {
+      margin-left: 0.5rem;
+      font-weight: 700;
+      font-family: 'Dancing Script';
+      font-size: 29px;
+    }
+  }
+  &-form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    &-title {
+      font-size: 26px;
+      margin: 0;
+      display: block;
+    }
+    &-btn {
+      margin-top: 2rem;
+    }
+    &-error {
+      margin: 0;
+      padding-top: 10px;
+      color: red;
+      font-size: 13px;
+    }
+  }
+  &-validated {
+    padding-top: 1rem;
+    text-align: center;
+    a {
+      color: $red;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 3;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &-bottom {
+    margin-top: 2rem;
+    font-size: 14px;
+    color: #555;
+    &-link {
+      color: #00838f;
+      font-weight: 500;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .register {
+    height: auto;
+    padding-top: 5rem;
+  }
+}

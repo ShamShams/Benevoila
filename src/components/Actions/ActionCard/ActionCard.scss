@@ -1,0 +1,134 @@
+.action-card {
+  margin-bottom: 1.5rem;
+  &-summary {
+    width: 100%;
+    margin-right: 1rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  &-infos {
+    flex-basis: 50%;
+  }
+  &-date {
+    margin: 0;
+    color: $red;
+    font-size: 13.5px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  &-title {
+    margin: 12px 0;
+    color: $grey-title;
+    font-size: 15.5px;
+    font-weight: bold;
+  }
+  &-time-place {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  &-vlt {
+    &-infos {
+      p {
+        margin-bottom: 0;
+        margin-top: 5px;
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+    &-reg {
+      margin-left: 5px;
+      color: $cyan;
+      font-weight: bold;
+    }
+    &-needed {
+      margin-left: 5px;
+      color: $red;
+      font-weight: bold;
+    }
+  }
+  &-button {
+    flex-basis: 23%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  &-buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    &-btn {
+      margin-left: 2rem;
+      button {
+        font-size: 13px;
+      }
+      .MuiSvgIcon-root-87 {
+        font-size: 19px;
+        margin-right: 2px;
+        margin-bottom: 2px;
+      }
+    }
+  }
+  &-details {
+    &-text {
+      padding-right: 2rem;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      h4 {
+        margin: 0;
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+      p {
+        margin: 0;
+        color: $grey-paragraph;
+        font-size: 13.8px;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+    }
+  }
+  &-description {
+    flex-basis: 55%;
+    &-details {
+      padding-top: 5px;
+      span {
+        font-size: 13px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .action-card {
+    &-summary {
+      flex-flow: column nowrap;
+      align-items: flex-start;
+    }
+    &-vlt-infos {
+      p {
+        margin-top: 10px;
+      }
+    }
+    &-button {
+      margin-top: 20px;
+      align-self: flex-end;
+    }
+    &-buttons {
+      justify-content: space-between;
+      &-btn {
+        margin-left: 0;
+      }
+    }
+    &-details-text {
+      flex-flow: column nowrap;
+      p {
+        margin-bottom: 0.7rem;
+      }
+    }
+  }
+}
