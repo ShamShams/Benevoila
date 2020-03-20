@@ -75,7 +75,7 @@ class Login extends Component {
   render() {
     return (
       <div className='login'>
-        <img className='login-logo' src='/src/assets/images/logo-blanc.png' />
+        <img className='login-logo' src='/src/assets/images/logo.png' />
         <div className='login-benevoila'>
           créé par <span>Bénévoilà</span>
         </div>

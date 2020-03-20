@@ -125,7 +125,7 @@ class Register extends Component {
   render() {
     return (
       <div className='register'>
-        <img className='register-logo' src='/src/assets/images/logo-blanc.png' />
+        <img className='register-logo' src='/src/assets/images/logo.png' />
         <div className='register-benevoila'>
           créé par <span>Bénévoilà</span>
         </div>

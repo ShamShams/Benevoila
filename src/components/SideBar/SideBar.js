@@ -30,7 +30,7 @@ class SideBar extends Component {
         <div className='benevoila'>Bénévoilà</div>
         <div className='logo'>
           <NavLink to={`/actions`} className='link' exact>
-            <img src='/src/assets/images/logo-acdlp.png' alt='Logo Au coeur de la précarité' />
+            <img src='/src/assets/images/logo.png' alt='Logo' />
           </NavLink>
         </div>
         <Divider />
