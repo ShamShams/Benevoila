@@ -1,7 +1,7 @@
 # Bénévoilà
 
 ## Description du projet
-_Ce projet a été réalisé dans le cadre du passage du titre professionnel de niveau III Développeur Logiciel à Simplon._
+_Ce projet a été réalisé dans le cadre du passage du titre professionnel de niveau III Développeur web et web mobile à Simplon._
 
 Il s'agit d'une application web qui permet à une association de gérer ses actions de bénévolat et qui simplifie l'inscription de ses bénévoles aux différentes actions.
 
@@ -13,6 +13,8 @@ __Les bénévoles__, quant à eux, peuvent consulter les différentes actions qu
 
 - __React JS__  
     * Librairie de composants : __Material-UI__ _(https://material-ui.com/)_  
+ 
+ __À utiliser avec l'API [Bénévoila API](https://github.com/ShamShams/Benevoila-api)__
 
 ![](screens/login.png)  
 ![](screens/actions.png)  
