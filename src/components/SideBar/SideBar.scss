@@ -1,0 +1,59 @@
+.sidebar {
+  padding: 1rem 2rem;
+  .navlinks {
+    li {
+      list-style-type: none;
+      margin: 1.5rem 0;
+    }
+    .link {
+      color: #505050;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
+      &.active,
+      &:hover {
+        color: $red;
+      }
+    }
+    .deconnexion {
+      margin-top: 1.5rem;
+      span {
+        text-transform: none;
+        cursor: pointer;
+      }
+    }
+  }
+  .benevoila {
+    margin-top: 1rem;
+    margin-bottom: 1.8rem;
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Dancing Script';
+    font-size: 23px;
+    color: #545454;
+  }
+  .logo {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    img {
+      width: 8rem;
+    }
+  }
+  &-user {
+    margin: 1.5rem 0;
+    text-align: center;
+    p {
+      margin: 0;
+    }
+    .name {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .role {
+      margin-top: 4px;
+      text-transform: capitalize;
+      font-size: 13px;
+    }
+  }
+}

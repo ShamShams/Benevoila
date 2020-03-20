@@ -1,0 +1,22 @@
+@import 'variables';
+@import './imports.scss';
+
+// >>> FONTS : Montserrat, Roboto <<<
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500|Roboto:400,500|Lobster|Dancing+Script:400,700');
+
+body {
+  margin: 0;
+  color: #444;
+  background-color: #fafafa;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+@media screen and (min-width: $md) {
+  .icon-button {
+    display: none !important;
+  }
+}
